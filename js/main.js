@@ -22,7 +22,7 @@ const LOGO_FILES = {
 function buildLogo(slug) {
   const l = LOGO_FILES[slug];
   if (!l) return '';
-  return `<div class="logo-card" style="background:${l.bg};"><img src="${l.file}" alt="${slug}" loading="lazy"/></div>`;
+  return `<div class="logo-card" style="background:${l.bg};"><img src="${l.file}" alt="${slug}"/></div>`;
 }
 
 /* ---------- Arrow icon ---------- */
