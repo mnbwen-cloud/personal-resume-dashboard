@@ -30,7 +30,7 @@ const PLATFORMS = [
     name: "Douyin",
     handle: "Buerhu",
     url: "https://www.douyin.com/user/MS4wLjABAAAAcMVcgWLueUbUgbw9DlmyFiS01QqSuNiRHNVWLWzMwDk",
-    followers: 99,
+    followers: 99000,
     views: 1280000,
     unit: "followers",
     viewsUnit: "views",

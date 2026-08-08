@@ -521,13 +521,27 @@ function updateDataFile(updates) {
  * @param {string} id        data.js 中的 platform id
  * @param {Function} fn      爬虫函数
  * @param {Object} updates   结果收集对象
+ * @param {Object} currentData 当前 data.js 数据（用于合理性校验）
  * @returns {Promise<void>}
  */
-async function tryCrawl(name, id, fn, updates) {
+async function tryCrawl(name, id, fn, updates, currentData) {
   console.log('[%s] 爬取中...', name);
   try {
     const result = await fn();
     if (result && (result.followers != null || result.views != null)) {
+      const old = currentData[id] || {};
+
+      // 合理性校验：粉丝数与旧值相差超过 20 倍视为异常（页面渲染不完整/解析错误），保留原值
+      if (result.followers != null && old.followers != null && old.followers > 100) {
+        const ratio = result.followers / old.followers;
+        if (ratio > 20 || ratio < 1 / 20) {
+          console.warn(
+            `  ⚠ 粉丝数异常（旧=${old.followers} 新=${result.followers}），已拦截，保留原值`
+          );
+          result.followers = null;
+        }
+      }
+
       updates[id] = {};
       if (result.followers != null) {
         updates[id].followers = result.followers;
@@ -561,7 +575,7 @@ async function main() {
   const updates = {};
 
   // Bilibili 不需要 puppeteer，先爬
-  await tryCrawl('Bilibili', 'bilibili', crawlBilibili, updates);
+  await tryCrawl('Bilibili', 'bilibili', crawlBilibili, updates, currentData);
   console.log();
 
   // 启动 puppeteer 浏览器
@@ -575,19 +589,19 @@ async function main() {
 
   try {
     // YouTube
-    await tryCrawl('YouTube', 'youtube', () => crawlYouTube(browser), updates);
+    await tryCrawl('YouTube', 'youtube', () => crawlYouTube(browser), updates, currentData);
     console.log();
 
     // Douyin
-    await tryCrawl('Douyin', 'douyin', () => crawlDouyin(browser), updates);
+    await tryCrawl('Douyin', 'douyin', () => crawlDouyin(browser), updates, currentData);
     console.log();
 
     // Xigua
-    await tryCrawl('Xigua', 'xigua', () => crawlXigua(browser), updates);
+    await tryCrawl('Xigua', 'xigua', () => crawlXigua(browser), updates, currentData);
     console.log();
 
     // Haokan
-    await tryCrawl('Haokan', 'haokan', () => crawlHaokan(browser), updates);
+    await tryCrawl('Haokan', 'haokan', () => crawlHaokan(browser), updates, currentData);
     console.log();
 
     // Xiaohongshu (需要 cookie)
@@ -597,7 +611,8 @@ async function main() {
         'Xiaohongshu',
         'xiaohongshu',
         () => crawlXiaohongshu(browser, process.env.XHS_COOKIE),
-        updates
+        updates,
+        currentData
       );
     } else {
       console.log('  ⊘ XHS_COOKIE 未设置，跳过（保留原数据）');
@@ -611,7 +626,8 @@ async function main() {
         'Kuaishou',
         'kuaishou',
         () => crawlKuaishou(browser, process.env.KS_COOKIE),
-        updates
+        updates,
+        currentData
       );
     } else {
       console.log('  ⊘ KS_COOKIE 未设置，跳过（保留原数据）');
@@ -625,7 +641,8 @@ async function main() {
         'Toutiao',
         'toutiao',
         () => crawlToutiao(browser, process.env.TT_COOKIE),
-        updates
+        updates,
+        currentData
       );
     } else {
       console.log('  ⊘ TT_COOKIE 未设置，跳过（保留原数据）');
