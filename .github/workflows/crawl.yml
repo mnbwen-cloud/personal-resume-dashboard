@@ -9,6 +9,9 @@ on:
 jobs:
   crawl:
     runs-on: ubuntu-latest
+    # 允许 bot 提交并推送 data.js
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 

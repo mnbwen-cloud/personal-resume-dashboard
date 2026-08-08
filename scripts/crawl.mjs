@@ -135,8 +135,9 @@ function parseCookieString(cookieStr, domain) {
 // ============================================================
 
 /**
- * YouTube — 用 puppeteer 打开频道页面，提取订阅数和视频数
- * @returns {Promise<{followers: number, views: number}|null>}
+ * YouTube — 用 puppeteer 打开频道页面，提取订阅数
+ * 注意：公开频道页不显示总观看次数，因此 views 不更新（保留原数据）
+ * @returns {Promise<{followers: number}|null>}
  */
 async function crawlYouTube(browser) {
   const page = await browser.newPage();
@@ -153,7 +154,6 @@ async function crawlYouTube(browser) {
     const text = await page.evaluate(() => document.body.innerText);
 
     let subscribers = null;
-    let videos = null;
 
     // 订阅数 — 中文格式 "1700位订阅者"
     let m = text.match(/([\d.,]+[KkMm]?)\s*位订阅者/);
@@ -165,17 +165,7 @@ async function crawlYouTube(browser) {
       if (m) subscribers = parseEnglishNumber(m[1]);
     }
 
-    // 视频数 — 中文格式 "104 个视频"
-    m = text.match(/([\d.,]+)\s*个视频/);
-    if (m) videos = parseInt(m[1].replace(/,/g, ''), 10);
-
-    // 视频数 — 英文格式 "104 videos"
-    if (videos == null) {
-      m = text.match(/([\d.,]+)\s*videos?/i);
-      if (m) videos = parseInt(m[1].replace(/,/g, ''), 10);
-    }
-
-    return { followers: subscribers, views: videos };
+    return { followers: subscribers };
   } finally {
     await page.close();
   }
@@ -223,21 +213,23 @@ async function crawlDouyin(browser) {
       'https://www.douyin.com/user/MS4wLjABAAAAcMVcgWLueUbUgbw9DlmyFiS01QqSuNiRHNVWLWzMwDk',
       { waitUntil: 'networkidle2', timeout: TIMEOUT_MS }
     );
-    await new Promise((r) => setTimeout(r, 5000));
+    // 抖音页面加载较慢，等待"粉丝"出现，最长 20 秒
+    try {
+      await page.waitForFunction(
+        () => document.body && document.body.innerText.includes('粉丝'),
+        { timeout: 20000 }
+      );
+    } catch (_) { /* 超时则继续尝试 */ }
+    await new Promise((r) => setTimeout(r, 3000));
 
     const text = await page.evaluate(() => document.body.innerText);
 
     let followers = null;
 
-    // "粉丝 9.9万" 或 "粉丝数 9.9万" — 数字在"粉丝"后面
+    // 抖音页面结构："关注 139 / 粉丝 9.9万 / 获赞 8.5万"
+    // 注意：数字在"粉丝"前面的可能是"关注"数，因此这里匹配"粉丝"后面的数字
     let m = text.match(/粉丝[数]?\s*[:：]?\s*([\d.]+(?:万|亿)?)/);
     if (m) followers = parseChineseNumber(m[1]);
-
-    // "9.9万粉丝" — 数字在"粉丝"前面
-    if (followers == null) {
-      m = text.match(/([\d.]+(?:万|亿)?)\s*粉丝/);
-      if (m) followers = parseChineseNumber(m[1]);
-    }
 
     return { followers };
   } finally {
@@ -258,21 +250,22 @@ async function crawlXigua(browser) {
       waitUntil: 'networkidle2',
       timeout: TIMEOUT_MS,
     });
-    await new Promise((r) => setTimeout(r, 4000));
+    // 等待"粉丝"出现
+    try {
+      await page.waitForFunction(
+        () => document.body && document.body.innerText.includes('粉丝'),
+        { timeout: 20000 }
+      );
+    } catch (_) { /* 超时则继续尝试 */ }
+    await new Promise((r) => setTimeout(r, 2000));
 
     const text = await page.evaluate(() => document.body.innerText);
 
     let followers = null;
 
-    // "粉丝 9.8万" 或 "粉丝数 9.8万"
-    let m = text.match(/粉丝[数]?\s*[:：]?\s*([\d.]+(?:万|亿)?)/);
+    // 西瓜页面结构："9.8万 粉丝 / 4 关注" — 数字在"粉丝"前面
+    let m = text.match(/([\d.]+(?:万|亿)?)\s*粉丝/);
     if (m) followers = parseChineseNumber(m[1]);
-
-    // "9.8万粉丝"
-    if (followers == null) {
-      m = text.match(/([\d.]+(?:万|亿)?)\s*粉丝/);
-      if (m) followers = parseChineseNumber(m[1]);
-    }
 
     return { followers };
   } finally {
@@ -294,21 +287,22 @@ async function crawlHaokan(browser) {
       waitUntil: 'networkidle2',
       timeout: TIMEOUT_MS,
     });
-    await new Promise((r) => setTimeout(r, 4000));
+    // 等待"粉丝"出现
+    try {
+      await page.waitForFunction(
+        () => document.body && document.body.innerText.includes('粉丝'),
+        { timeout: 20000 }
+      );
+    } catch (_) { /* 超时则继续尝试 */ }
+    await new Promise((r) => setTimeout(r, 2000));
 
     const text = await page.evaluate(() => document.body.innerText);
 
     let followers = null;
 
-    // "1.7万粉丝" — 数字在"粉丝"前面
+    // 好看页面结构："1.7万 粉丝" — 数字在"粉丝"前面
     let m = text.match(/([\d.]+(?:万|亿)?)\s*粉丝/);
     if (m) followers = parseChineseNumber(m[1]);
-
-    // "粉丝 1.7万" — 备用：数字在"粉丝"后面
-    if (followers == null) {
-      m = text.match(/粉丝[数]?\s*[:：]?\s*([\d.]+(?:万|亿)?)/);
-      if (m) followers = parseChineseNumber(m[1]);
-    }
 
     return { followers };
   } finally {
@@ -338,20 +332,23 @@ async function crawlXiaohongshu(browser, cookie) {
       'https://www.xiaohongshu.com/user/profile/575567f250c4b430424a7bda',
       { waitUntil: 'networkidle2', timeout: TIMEOUT_MS }
     );
-    await new Promise((r) => setTimeout(r, 4000));
+    // 等待"粉丝"出现
+    try {
+      await page.waitForFunction(
+        () => document.body && document.body.innerText.includes('粉丝'),
+        { timeout: 20000 }
+      );
+    } catch (_) { /* 超时则继续尝试 */ }
+    await new Promise((r) => setTimeout(r, 2000));
 
     const text = await page.evaluate(() => document.body.innerText);
 
     let followers = null;
 
-    // "粉丝 1.8万" 或 "1.8万粉丝"
-    let m = text.match(/粉丝[数]?\s*[:：]?\s*([\d.]+(?:万|亿)?)/);
+    // 小红书页面结构："19 关注 / 413 粉丝 / 899 获赞与收藏"
+    // 数字在"粉丝"前面（前面的数字是关注数，这里是粉丝数）
+    let m = text.match(/([\d.]+(?:万|亿)?)\s*粉丝/);
     if (m) followers = parseChineseNumber(m[1]);
-
-    if (followers == null) {
-      m = text.match(/([\d.]+(?:万|亿)?)\s*粉丝/);
-      if (m) followers = parseChineseNumber(m[1]);
-    }
 
     return { followers };
   } finally {
@@ -380,19 +377,22 @@ async function crawlKuaishou(browser, cookie) {
       waitUntil: 'networkidle2',
       timeout: TIMEOUT_MS,
     });
-    await new Promise((r) => setTimeout(r, 4000));
+    // 等待"粉丝"出现
+    try {
+      await page.waitForFunction(
+        () => document.body && document.body.innerText.includes('粉丝'),
+        { timeout: 20000 }
+      );
+    } catch (_) { /* 超时则继续尝试 */ }
+    await new Promise((r) => setTimeout(r, 2000));
 
     const text = await page.evaluate(() => document.body.innerText);
 
     let followers = null;
 
-    let m = text.match(/粉丝[数]?\s*[:：]?\s*([\d.]+(?:万|亿)?)/);
+    // 快手页面结构："6776 粉丝 / 10 关注" — 数字在"粉丝"前面
+    let m = text.match(/([\d.]+(?:万|亿)?)\s*粉丝/);
     if (m) followers = parseChineseNumber(m[1]);
-
-    if (followers == null) {
-      m = text.match(/([\d.]+(?:万|亿)?)\s*粉丝/);
-      if (m) followers = parseChineseNumber(m[1]);
-    }
 
     return { followers };
   } finally {
@@ -421,19 +421,22 @@ async function crawlToutiao(browser, cookie) {
       'https://www.toutiao.com/c/user/token/Ciji1bP6Rq6-RyepfEmGMkpoCJ4lN5cBsQMkceOR4j6l86zdOn2xEwqrGkkKPAAAAAAAAAAAAABQwae_eB18l6OI3EAxLPmIkW1zAbVxiUXwJuryib4SLz689sLVv1L2gPujFHDDcW6BlxDf_5gOGMPFg-oEIgEDJvLr2A==/?source=m_redirect',
       { waitUntil: 'networkidle2', timeout: TIMEOUT_MS }
     );
-    await new Promise((r) => setTimeout(r, 4000));
+    // 等待"粉丝"出现
+    try {
+      await page.waitForFunction(
+        () => document.body && document.body.innerText.includes('粉丝'),
+        { timeout: 20000 }
+      );
+    } catch (_) { /* 超时则继续尝试 */ }
+    await new Promise((r) => setTimeout(r, 2000));
 
     const text = await page.evaluate(() => document.body.innerText);
 
     let followers = null;
 
-    let m = text.match(/粉丝[数]?\s*[:：]?\s*([\d.]+(?:万|亿)?)/);
+    // 头条页面结构："12.8万获赞 9.0万粉丝 4关注" — 数字在"粉丝"前面
+    let m = text.match(/([\d.]+(?:万|亿)?)\s*粉丝/);
     if (m) followers = parseChineseNumber(m[1]);
-
-    if (followers == null) {
-      m = text.match(/([\d.]+(?:万|亿)?)\s*粉丝/);
-      if (m) followers = parseChineseNumber(m[1]);
-    }
 
     return { followers };
   } finally {
@@ -665,19 +668,11 @@ async function main() {
       const newF = upd.followers != null ? upd.followers.toLocaleString() : oldF;
       const newV = upd.views != null ? upd.views.toLocaleString() : oldV;
       console.log(
-        '  %-14s  粉丝: %s → %s   观看: %s → %s',
-        id,
-        oldF,
-        newF,
-        oldV,
-        newV
+        `  ${id.padEnd(14)}  粉丝: ${oldF} → ${newF}   观看: ${oldV} → ${newV}`
       );
     } else {
       console.log(
-        '  %-14s  粉丝: %s (未更新)   观看: %s (未更新)',
-        id,
-        oldF,
-        oldV
+        `  ${id.padEnd(14)}  粉丝: ${oldF} (未更新)   观看: ${oldV} (未更新)`
       );
     }
   }

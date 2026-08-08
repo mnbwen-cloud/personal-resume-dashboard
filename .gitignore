@@ -5,3 +5,4 @@ node_modules/
 secrets/
 .tmp/
 seeds_result.json
+scripts/cookies/

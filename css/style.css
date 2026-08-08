@@ -53,6 +53,27 @@ body {
   overflow: hidden;
 }
 
+/* Seedance video backgrounds */
+.bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.bg-video--main {
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.bg-video--overlay {
+  opacity: 0.2;
+  z-index: 1;
+  mix-blend-mode: screen;
+}
+
 /* Mesh gradient orbs */
 .orb {
   position: absolute;
@@ -301,6 +322,25 @@ body {
   flex-direction: column;
   justify-content: space-between;
   background: linear-gradient(145deg, rgba(99,102,241,0.08) 0%, var(--surface) 60%);
+  position: relative;
+  overflow: hidden;
+}
+
+.header-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.25;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.tile--header > .header-content,
+.tile--header > .header-deco {
+  position: relative;
+  z-index: 1;
 }
 
 .header-eyebrow {
