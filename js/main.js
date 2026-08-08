@@ -3,81 +3,84 @@
  * Particle system, cursor glow, 3D tilt, spring animations
  * ============================================================ */
 
-/* ---------- Platform Logos (official brand SVG paths, 48x48 rounded card) ----------
- * Each logo uses the official vector path from brand guidelines / simple-icons.
- * Background = brand color rounded square; foreground = white glyph centered.
- * ------------------------------------------------------------------- */
+/* ---------- Platform Logos — Clean official-brand SVGs, 48×48 rounded card ---------- */
 const ICONS = {
-  // YouTube: official red rounded rect + white play triangle (YouTube Full Color)
+  /* YouTube – red rounded rect + centered white play triangle */
   youtube: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="12" fill="#FF0000"/>
-    <path d="M46.996 12.372c-.55-2.05-2.167-3.667-4.217-4.22C38.99 7.224 24 7.224 24 7.224s-14.99 0-18.779.928c-2.05.553-3.667 2.17-4.217 4.22C.08 16.16.08 24 .08 24s0 7.84.924 11.628c.55 2.05 2.167 3.667 4.217 4.22C9.01 40.776 24 40.776 24 40.776s14.99 0 18.779-.928c2.05-.553 3.667-2.17 4.217-4.22.924-3.788.924-11.628.924-11.628s0-7.84-.924-11.628zM19.09 31.136V16.864L31.636 24 19.09 31.136z" fill="#FFFFFF" transform="translate(0,0)"/>
+    <polygon points="18,13 36,24 18,35" fill="#FFFFFF"/>
   </svg>`,
 
-  // Douyin: black bg + official cyan (#25F4EE) & red (#FE2C55) offset note glyph
+  /* Douyin – black bg + dual-color cyan/red musical-note glyph */
   douyin: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="12" fill="#000000"/>
-    <g transform="translate(11,8) scale(1.08)">
-      <path d="M25.05 10.52c-2.92 0-5.3-2.38-5.3-5.3V3.2h-3.92v14.93c0 1.82-1.48 3.3-3.3 3.3s-3.3-1.48-3.3-3.3 1.48-3.3 3.3-3.3c.34 0 .67.05.98.15v-3.98a7.28 7.28 0 0 0-.98-.07C8.55 10.93 5 14.48 5 18.9s3.55 7.97 7.97 7.97 7.97-3.55 7.97-7.97v-7.6a9.6 9.6 0 0 0 5.6 1.79V9.97c-.5 0-.99-.05-1.49-.15.34.55.49 1.18.49 1.83l-.49-1.13z" fill="#25F4EE" transform="translate(1.2,1.2)"/>
-      <path d="M25.05 10.52c-2.92 0-5.3-2.38-5.3-5.3V3.2h-3.92v14.93c0 1.82-1.48 3.3-3.3 3.3s-3.3-1.48-3.3-3.3 1.48-3.3 3.3-3.3c.34 0 .67.05.98.15v-3.98a7.28 7.28 0 0 0-.98-.07C8.55 10.93 5 14.48 5 18.9s3.55 7.97 7.97 7.97 7.97-3.55 7.97-7.97v-7.6a9.6 9.6 0 0 0 5.6 1.79V9.97c-.5 0-.99-.05-1.49-.15.34.55.49 1.18.49 1.83l-.49-1.13z" fill="#FFFFFF"/>
-      <path d="M25.05 10.52c-2.92 0-5.3-2.38-5.3-5.3V3.2h-3.92v14.93c0 1.82-1.48 3.3-3.3 3.3s-3.3-1.48-3.3-3.3 1.48-3.3 3.3-3.3c.34 0 .67.05.98.15v-3.98a7.28 7.28 0 0 0-.98-.07C8.55 10.93 5 14.48 5 18.9s3.55 7.97 7.97 7.97 7.97-3.55 7.97-7.97v-7.6a9.6 9.6 0 0 0 5.6 1.79V9.97c-.5 0-.99-.05-1.49-.15.34.55.49 1.18.49 1.83l-.49-1.13z" fill="#FE2C55" transform="translate(-1.2,-1.2)"/>
+    <g transform="translate(13,7)">
+      <path d="M20 0c0 3.7-1 6.5-3 8.5a9 9 0 0 1-6.5 2.8l.1 4.7c5.5-.4 9-2.7 10.5-6.8V0H20z" fill="#25F4EE" transform="translate(1.6,1.6)"/>
+      <path d="M20 0c0 3.7-1 6.5-3 8.5a9 9 0 0 1-6.5 2.8l.1 4.7c5.5-.4 9-2.7 10.5-6.8V0H20z" fill="#FFFFFF"/>
+      <path d="M20 0c0 3.7-1 6.5-3 8.5a9 9 0 0 1-6.5 2.8l.1 4.7c5.5-.4 9-2.7 10.5-6.8V0H20z" fill="#FE2C55" transform="translate(-1.6,-1.6)"/>
+      <rect x="4" y="18" width="2.8" height="16" rx="1.4" fill="#FFFFFF"/>
     </g>
   </svg>`,
 
-  // Xiaohongshu (RED): red bg + white "小红书" style glyph using official "小" + "红书" wordmark
+  /* Xiaohongshu – red bg + open-book page icon */
   xiaohongshu: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="12" fill="#FF2442"/>
-    <g fill="#FFFFFF">
-      <rect x="11" y="14" width="3.2" height="20" rx="0.5"/>
-      <path d="M16.5 14h3v8.2l5.3-8.2h3.6l-6.2 9 6.6 11h-3.8l-5.1-8.6v8.6h-3.4z"/>
-      <path d="M30 14h2.8l2.2 6 2.2-6h2.8l-3.6 9 3.8 11h-3l-2.4-7-2.4 7h-3l3.8-11z"/>
+    <g fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(9,10)">
+      <path d="M0 2h12v24H0zM18 2h12v24H18z"/>
+      <path d="M12 6l6 4M12 12l6 4M12 18l6 4" stroke-width="1.6"/>
     </g>
   </svg>`,
 
-  // Bilibili: blue bg + official white TV-with-antenna mascot glyph
+  /* Bilibili – blue bg + white monitor-with-speaker icon */
   bilibili: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="12" fill="#00A1D6"/>
-    <path d="M35.627 9.3h-1.14l2.54-2.54c1.8-1.8-.9-4.5-2.7-2.7l-5.22 5.22H15.173L9.953 4.06c-1.8-1.8-4.5.9-2.7 2.7l2.54 2.54h-1.14C5.969 9.3 4 11.269 4 13.669v21c0 2.4 1.969 4.369 4.369 4.369h27.258c2.4 0 4.369-1.969 4.369-4.369v-21c0-2.4-1.969-4.369-4.369-4.369zm-12.672 18.672H12.06v-3h10.895v3zm9.236-6H21.1v-3h11.091v3z" fill="#FFFFFF" transform="translate(2,3)"/>
+    <g fill="#FFFFFF" transform="translate(8,9)">
+      <rect x="0" y="1" width="32" height="22" rx="3"/>
+      <rect x="2" y="3" width="28" height="16" rx="1.5" fill="#00A1D6"/>
+      <rect x="13" y="25" width="6" height="4" rx="2"/>
+      <rect x="8" y="29" width="16" height="2" rx="1"/>
+      <circle cx="24" cy="6" r="2"/>
+      <circle cx="8" cy="6" r="2"/>
+    </g>
   </svg>`,
 
-  // Kuaishou: orange bg + official white camera+film glyph (Kuaishou brand mark)
+  /* Kuaishou – orange bg + white camera-with-lens icon */
   kuaishou: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="12" fill="#FF4906"/>
-    <g fill="#FFFFFF" transform="translate(10,10)">
-      <path d="M23 3.2c.8-.2 1.6.3 1.8 1.1.1.5 0 .9-.3 1.3l-4.3 5.2 3.2 1.9c1.2.7 1.6 2.3.9 3.5-.2.4-.5.7-.9.9l-3.2 1.9 4.3 5.2c.5.6.4 1.5-.2 2-.4.3-.8.4-1.3.3L4.5 21.5c-1.4-.3-2.3-1.6-2-3 .2-.9.8-1.6 1.7-1.9L23 3.2z"/>
-      <circle cx="3.5" cy="6.5" r="2.5"/>
+    <g fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(8,9)">
+      <rect x="0" y="5" width="28" height="20" rx="3"/>
+      <circle cx="14" cy="12" r="5"/>
+      <circle cx="14" cy="12" r="2" fill="#FFFFFF" stroke="none"/>
+      <path d="M28 10l6-4v16l-6-4z" stroke-width="1.8"/>
     </g>
   </svg>`,
 
-  // Toutiao (Jinri Toutiao): red bg + white official "头条" abstract news glyph
+  /* Toutiao – red bg + white news-headlines icon */
   toutiao: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="12" fill="#D9262C"/>
-    <g fill="#FFFFFF" transform="translate(8,9)">
-      <path d="M0 2.5h32v4.2H20.5V30h-8.8V6.7H0z"/>
+    <g fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(14,10)">
+      <path d="M0 0h20v4H0zM0 12h20v4H0zM0 24h20v4H0z"/>
+      <path d="M0 6h16v4H0zM8 18h12v4H8z"/>
     </g>
   </svg>`,
 
-  // Xigua Video: red bg + white watermelon+play glyph (official brand mark)
+  /* Xigua – deep red bg + white watermelon-slice with green rind */
   xigua: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="12" fill="#FE3020"/>
-    <g transform="translate(9,9)">
-      <circle cx="15" cy="15" r="13" fill="#FFFFFF"/>
-      <circle cx="15" cy="15" r="10.5" fill="#FE3020"/>
-      <polygon points="12,9 21,15 12,21" fill="#FFFFFF"/>
-      <ellipse cx="15" cy="2" rx="3" ry="1.5" fill="#4CAF50"/>
-      <ellipse cx="11" cy="3" rx="2" ry="1" fill="#4CAF50" transform="rotate(-30 11 3)"/>
-      <ellipse cx="19" cy="3" rx="2" ry="1" fill="#4CAF50" transform="rotate(30 19 3)"/>
+    <g transform="translate(10,8)">
+      <path d="M14 0C6.3 0 0 6.3 0 14v16a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V14C28 6.3 21.7 0 14 0z" fill="#FFFFFF"/>
+      <path d="M14 4c-5.5 0-10 4.5-10 10v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V14c0-5.5-4.5-10-10-10z" fill="#FE3020"/>
+      <circle cx="10" cy="12" r="1.5" fill="#FFFFFF"/>
+      <circle cx="18" cy="16" r="1.5" fill="#FFFFFF"/>
+      <path d="M2 2C2 2 8 0 14 0c6 0 9.5 1.6 12 2" fill="none" stroke="#4CAF50" stroke-width="2.5" stroke-linecap="round"/>
     </g>
   </svg>`,
 
-  // Haokan (Baidu Haokan Video): blue bg + white play-in-hexagon glyph
+  /* Haokan – blue bg + white hexagonal play button */
   haokan: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="48" rx="12" fill="#2A6EFF"/>
-    <g fill="#FFFFFF" transform="translate(10,11)">
-      <path d="M14 0 1.8 7v14L14 28l12.2-7V7L14 0z" opacity="0.25"/>
-      <path d="M14 0 1.8 7v14L14 28l12.2-7V7L14 0zm0 4 8.5 4.9v9.8L14 23.4 5.5 18.7v-9.8L14 4z"/>
-      <polygon points="11,9 19,14 11,19"/>
-    </g>
+    <polygon points="24,6 43,17 43,31 24,42 5,31 5,17" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+    <polygon points="17,13 17,35 35,24" fill="#FFFFFF"/>
   </svg>`
 };
 
