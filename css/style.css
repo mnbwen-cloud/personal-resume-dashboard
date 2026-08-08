@@ -556,6 +556,25 @@ body {
   height: 100%;
 }
 
+/* Logo card: brand-color rounded square containing official <img> logo */
+.logo-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+.logo-card img {
+  width: 62%;
+  height: 62%;
+  object-fit: contain;
+}
+/* Raster logos (PNG/ICO) are colored; turn them white to match SVG icons */
+.logo-card img:not([src$=".svg"]) {
+  filter: brightness(0) invert(1);
+}
+
 .pcard:hover .pcard__icon {
   transform: scale(1.12) rotate(-5deg);
   filter: brightness(1.15);

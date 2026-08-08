@@ -3,86 +3,27 @@
  * Particle system, cursor glow, 3D tilt, spring animations
  * ============================================================ */
 
-/* ---------- Platform Logos — Clean official-brand SVGs, 48×48 rounded card ---------- */
-const ICONS = {
-  /* YouTube – red rounded rect + centered white play triangle */
-  youtube: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-    <rect width="48" height="48" rx="12" fill="#FF0000"/>
-    <polygon points="18,13 36,24 18,35" fill="#FFFFFF"/>
-  </svg>`,
-
-  /* Douyin – black bg + dual-color cyan/red musical-note glyph */
-  douyin: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-    <rect width="48" height="48" rx="12" fill="#000000"/>
-    <g transform="translate(13,7)">
-      <path d="M20 0c0 3.7-1 6.5-3 8.5a9 9 0 0 1-6.5 2.8l.1 4.7c5.5-.4 9-2.7 10.5-6.8V0H20z" fill="#25F4EE" transform="translate(1.6,1.6)"/>
-      <path d="M20 0c0 3.7-1 6.5-3 8.5a9 9 0 0 1-6.5 2.8l.1 4.7c5.5-.4 9-2.7 10.5-6.8V0H20z" fill="#FFFFFF"/>
-      <path d="M20 0c0 3.7-1 6.5-3 8.5a9 9 0 0 1-6.5 2.8l.1 4.7c5.5-.4 9-2.7 10.5-6.8V0H20z" fill="#FE2C55" transform="translate(-1.6,-1.6)"/>
-      <rect x="4" y="18" width="2.8" height="16" rx="1.4" fill="#FFFFFF"/>
-    </g>
-  </svg>`,
-
-  /* Xiaohongshu – red bg + open-book page icon */
-  xiaohongshu: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-    <rect width="48" height="48" rx="12" fill="#FF2442"/>
-    <g fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(9,10)">
-      <path d="M0 2h12v24H0zM18 2h12v24H18z"/>
-      <path d="M12 6l6 4M12 12l6 4M12 18l6 4" stroke-width="1.6"/>
-    </g>
-  </svg>`,
-
-  /* Bilibili – blue bg + white monitor-with-speaker icon */
-  bilibili: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-    <rect width="48" height="48" rx="12" fill="#00A1D6"/>
-    <g fill="#FFFFFF" transform="translate(8,9)">
-      <rect x="0" y="1" width="32" height="22" rx="3"/>
-      <rect x="2" y="3" width="28" height="16" rx="1.5" fill="#00A1D6"/>
-      <rect x="13" y="25" width="6" height="4" rx="2"/>
-      <rect x="8" y="29" width="16" height="2" rx="1"/>
-      <circle cx="24" cy="6" r="2"/>
-      <circle cx="8" cy="6" r="2"/>
-    </g>
-  </svg>`,
-
-  /* Kuaishou – orange bg + white camera-with-lens icon */
-  kuaishou: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-    <rect width="48" height="48" rx="12" fill="#FF4906"/>
-    <g fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(8,9)">
-      <rect x="0" y="5" width="28" height="20" rx="3"/>
-      <circle cx="14" cy="12" r="5"/>
-      <circle cx="14" cy="12" r="2" fill="#FFFFFF" stroke="none"/>
-      <path d="M28 10l6-4v16l-6-4z" stroke-width="1.8"/>
-    </g>
-  </svg>`,
-
-  /* Toutiao – red bg + white news-headlines icon */
-  toutiao: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-    <rect width="48" height="48" rx="12" fill="#D9262C"/>
-    <g fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(14,10)">
-      <path d="M0 0h20v4H0zM0 12h20v4H0zM0 24h20v4H0z"/>
-      <path d="M0 6h16v4H0zM8 18h12v4H8z"/>
-    </g>
-  </svg>`,
-
-  /* Xigua – deep red bg + white watermelon-slice with green rind */
-  xigua: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-    <rect width="48" height="48" rx="12" fill="#FE3020"/>
-    <g transform="translate(10,8)">
-      <path d="M14 0C6.3 0 0 6.3 0 14v16a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V14C28 6.3 21.7 0 14 0z" fill="#FFFFFF"/>
-      <path d="M14 4c-5.5 0-10 4.5-10 10v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V14c0-5.5-4.5-10-10-10z" fill="#FE3020"/>
-      <circle cx="10" cy="12" r="1.5" fill="#FFFFFF"/>
-      <circle cx="18" cy="16" r="1.5" fill="#FFFFFF"/>
-      <path d="M2 2C2 2 8 0 14 0c6 0 9.5 1.6 12 2" fill="none" stroke="#4CAF50" stroke-width="2.5" stroke-linecap="round"/>
-    </g>
-  </svg>`,
-
-  /* Haokan – blue bg + white hexagonal play button */
-  haokan: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-    <rect width="48" height="48" rx="12" fill="#2A6EFF"/>
-    <polygon points="24,6 43,17 43,31 24,42 5,31 5,17" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
-    <polygon points="17,13 17,35 35,24" fill="#FFFFFF"/>
-  </svg>`
+/* ---------- Platform Logos — official brand icons from simple-icons + platform CDNs ----------
+ * 5 SVGs from simple-icons (official brand icons, MIT licensed)
+ * 3 PNG/ICO fetched directly from each platform's official favicon CDN
+ * All rendered as <img> inside a rounded brand-color card.
+ */
+const LOGO_FILES = {
+  youtube:     { file: 'assets/logos/youtube.svg',     bg: '#FF0000' },
+  douyin:      { file: 'assets/logos/tiktok.svg',      bg: '#000000' },
+  xiaohongshu: { file: 'assets/logos/xiaohongshu.svg', bg: '#FF2442' },
+  bilibili:    { file: 'assets/logos/bilibili.svg',    bg: '#00A1D6' },
+  kuaishou:    { file: 'assets/logos/kuaishou.svg',    bg: '#FF4906' },
+  toutiao:     { file: 'assets/logos/toutiao.png',     bg: '#D9262C' },
+  xigua:       { file: 'assets/logos/xigua.ico',       bg: '#FE3020' },
+  haokan:      { file: 'assets/logos/haokan.png',      bg: '#2A6EFF' },
 };
+
+function buildLogo(slug) {
+  const l = LOGO_FILES[slug];
+  if (!l) return '';
+  return `<div class="logo-card" style="background:${l.bg};"><img src="${l.file}" alt="${slug}" loading="lazy"/></div>`;
+}
 
 /* ---------- Arrow icon ---------- */
 const ARROW_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>`;
@@ -364,7 +305,7 @@ function render() {
          ${isDouyin ? 'data-douyin="true"' : ''}>
         <div class="pcard__glow" style="${glowStyle}"></div>
         <div class="pcard__head">
-          <span class="pcard__icon" style="box-shadow: 0 4px 20px ${p.color}30;">${ICONS[p.slug] || ''}</span>
+          <span class="pcard__icon" style="box-shadow: 0 4px 20px ${p.color}30;">${buildLogo(p.slug)}</span>
           <div class="pcard__info">
             <div class="pcard__name">${p.name}</div>
             <div class="pcard__handle">${p.handle}</div>
