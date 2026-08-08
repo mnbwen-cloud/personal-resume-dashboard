@@ -1,0 +1,13 @@
+{
+  "name": "personal-resume-dashboard",
+  "version": "1.0.0",
+  "description": "Multi-platform dashboard with auto-crawling",
+  "type": "module",
+  "scripts": {
+    "crawl": "node scripts/crawl.mjs",
+    "serve": "npx http-server . -p 8765"
+  },
+  "dependencies": {
+    "puppeteer": "^23.0.0"
+  }
+}
