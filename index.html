@@ -1,235 +1,147 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Erhu Studio — 全平台数据中心</title>
+<title>Erhu Studio - Creator Dashboard</title>
+<meta name="description" content="Erhu Studio. Eight video platforms, one creator. Followers, views, and direct links to every channel.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- Animated background layers -->
-<div class="bg-illustration">
-  <!-- Seedance video backgrounds -->
-  <video class="bg-video bg-video--main" autoplay muted loop playsinline>
-    <source src="assets/videos/dashboard-bg-aurora.mp4" type="video/mp4">
-  </video>
-  <video class="bg-video bg-video--overlay" autoplay muted loop playsinline>
-    <source src="assets/videos/particle-flow.mp4" type="video/mp4">
-  </video>
-
-  <!-- Mesh gradient orbs -->
-  <div class="orb orb--1"></div>
-  <div class="orb orb--2"></div>
-  <div class="orb orb--3"></div>
-  <div class="orb orb--4"></div>
-
-  <!-- Ethereal erhu silhouette (very subtle) -->
-  <svg class="erhu-silhouette" viewBox="0 0 400 800" xmlns="http://www.w3.org/2000/svg">
-    <g opacity="0.06" stroke="url(#silGrad)" stroke-width="1.5" fill="none">
-      <!-- Vertical neck -->
-      <line x1="200" y1="80" x2="200" y2="620"/>
-      <!-- Sound box (hexagonal erhu qin tong) -->
-      <path d="M160,380 L160,500 Q160,540 200,540 Q240,540 240,500 L240,380 Q240,360 200,360 Q160,360 160,380 Z"/>
-      <!-- Tuning pegs -->
-      <line x1="200" y1="150" x2="250" y2="130"/>
-      <line x1="200" y1="190" x2="250" y2="170"/>
-      <!-- Strings -->
-      <line x1="193" y1="120" x2="193" y2="520"/>
-      <line x1="207" y1="120" x2="207" y2="520"/>
-      <!-- Bow -->
-      <line x1="100" y1="400" x2="300" y2="420"/>
-    </g>
-    <defs>
-      <linearGradient id="silGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#D4A853"/>
-        <stop offset="100%" stop-color="#A855F7"/>
-      </linearGradient>
-    </defs>
-  </svg>
-
-  <!-- Animated sound-wave bars (left side, slow) -->
-  <div class="sound-wave sound-wave--left" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-  </div>
-
-  <!-- Animated sound-wave bars (right side) -->
-  <div class="sound-wave sound-wave--right" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-  </div>
-
-  <!-- Floating musical notes -->
-  <div class="floating-notes" aria-hidden="true">
-    <svg class="note note--1" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
-    <svg class="note note--2" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
-    <svg class="note note--3" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3H8v10.55A4 4 0 1 0 10 17V7h8V3h2z"/></svg>
-    <svg class="note note--4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
-    <svg class="note note--5" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3H8v10.55A4 4 0 1 0 10 17V7h8V3h2z"/></svg>
-    <svg class="note note--6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
-  </div>
-
-  <!-- Animated string-vibration lines (horizontal, like plucked erhu string) -->
-  <svg class="string-vibes" viewBox="0 0 1440 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <linearGradient id="stringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#D4A853" stop-opacity="0"/>
-        <stop offset="50%" stop-color="#D4A853" stop-opacity="0.25"/>
-        <stop offset="100%" stop-color="#A855F7" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
-    <path class="string string--1" d="M0,200 Q360,180 720,200 T1440,200" fill="none" stroke="url(#stringGrad)" stroke-width="1"/>
-    <path class="string string--2" d="M0,250 Q360,270 720,250 T1440,250" fill="none" stroke="url(#stringGrad)" stroke-width="0.8"/>
-    <path class="string string--3" d="M0,320 Q360,300 720,320 T1440,320" fill="none" stroke="url(#stringGrad)" stroke-width="0.6"/>
-  </svg>
-
-  <!-- Grid pattern -->
-  <svg class="grid-pattern" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-        <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-      </pattern>
-    </defs>
-    <rect width="100%" height="100%" fill="url(#grid)"/>
-  </svg>
-
-  <!-- Flowing wave lines -->
-  <svg class="wave-lines" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-    <defs>
-      <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#D4A853" stop-opacity="0"/>
-        <stop offset="50%" stop-color="#D4A853" stop-opacity="0.25"/>
-        <stop offset="100%" stop-color="#A855F7" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
-    <path class="wave wave--1" d="M0,100 C200,50 400,150 600,100 C800,50 1000,150 1200,100 C1400,50 1600,150 1800,100" fill="none" stroke="url(#waveGrad1)" stroke-width="1.5"/>
-    <path class="wave wave--2" d="M0,200 C300,120 500,280 800,200 C1100,120 1300,280 1600,200" fill="none" stroke="url(#waveGrad1)" stroke-width="1" opacity="0.5"/>
-    <path class="wave wave--3" d="M0,300 C250,380 450,220 700,300 C950,380 1150,220 1400,300 C1650,380 1900,220 2000,300" fill="none" stroke="url(#waveGrad1)" stroke-width="1" opacity="0.3"/>
-  </svg>
-
-  <!-- Particles canvas -->
-  <canvas class="particles-canvas" id="particlesCanvas"></canvas>
+<div class="bg" aria-hidden="true">
+  <canvas class="bg__noise" id="noiseCanvas"></canvas>
+  <div class="bg__grid"></div>
+  <div class="bg__glow" id="cursorGlow"></div>
+  <div class="bg__orb bg__orb--1"></div>
+  <div class="bg__orb bg__orb--2"></div>
+  <div class="bg__scan"></div>
 </div>
 
-<!-- Mouse cursor glow -->
-<div class="cursor-glow" id="cursorGlow"></div>
+<div class="topbar">
+  <div class="topbar__brand">
+    <span class="topbar__mark"></span>
+    <span>ERHU/STUDIO</span>
+  </div>
+  <div class="topbar__meta">
+    <span class="topbar__live"><i></i>LIVE</span>
+    <span class="topbar__sep">/</span>
+    <span>UPDATED <b id="boardUpdated"></b></span>
+    <span class="topbar__sep">/</span>
+    <span>8 PLATFORMS</span>
+  </div>
+</div>
 
-<main class="dashboard">
-  <!-- Header tile -->
-  <header class="tile tile--header">
-    <div class="tile__glow"></div>
-    <video class="header-video" autoplay muted loop playsinline>
-      <source src="assets/videos/geometric-abstract.mp4" type="video/mp4">
-    </video>
-    <div class="header-content">
-      <div class="header-eyebrow">
-        <span class="pulse-dot"></span>
-        二胡教学 · 全平台直播
-      </div>
-      <h1 class="header-title">
-        <span class="title-cn">Erhu Studio</span>
-        <span class="title-accent">二胡数据中心</span>
+<main class="stage">
+
+  <header class="hero">
+    <div class="hero__left">
+      <p class="hero__kicker">
+        <span>CREATOR</span>
+        <span>ERHU TEACHER</span>
+        <span>GLOBAL REACH</span>
+      </p>
+      <h1 class="hero__title" data-split>
+        <span class="line">Sound of</span>
+        <span class="line line--italic">two strings,</span>
+        <span class="line">eight screens.</span>
       </h1>
-      <p class="header-sub">8 大视频平台数据中心 · 一键直达各频道 · 实时掌握演奏影响力</p>
-      <div class="header-meta">
-        <span class="meta-item">数据更新于 <b id="boardUpdated"></b></span>
+      <p class="hero__sub" data-cn>
+        One erhu teacher. Eight video platforms. Every follower, every view, every channel, in a single command center.
+        <span class="hero__cn">一弓两弦，八屏共鸣 / 全平台数据中心。</span>
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#channels">
+          <span>Enter channels</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="#numbers">
+          <span>See the numbers</span>
+        </a>
       </div>
     </div>
-    <!-- Animated mini equalizer in header -->
-    <div class="header-deco">
-      <div class="header-eq" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
+    <div class="hero__right">
+      <div class="disc">
+        <div class="disc__ring"></div>
+        <div class="disc__ring disc__ring--2"></div>
+        <div class="disc__core">
+          <span class="disc__num" id="discFollowers">0</span>
+          <span class="disc__label">FOLLOWERS</span>
+        </div>
+        <svg class="disc__text" viewBox="0 0 200 200">
+          <defs>
+            <path id="circlePath" d="M 100,100 m -80,0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"/>
+          </defs>
+          <text class="disc__textpath">
+            <textPath href="#circlePath">ERHU STUDIO · GLOBAL CREATOR · TWO STRINGS · </textPath>
+          </text>
+        </svg>
       </div>
     </div>
   </header>
 
-  <!-- Total followers -->
-  <section class="tile tile--stat tile--stat-lg">
-    <div class="tile__glow"></div>
-    <div class="stat-eyebrow">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-      </svg>
-      全网粉丝总量
-    </div>
-    <div class="stat-value" id="totalFollowers">0</div>
-    <div class="stat-trend stat-trend--up">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-        <polyline points="17 6 23 6 23 12"/>
-      </svg>
-      本月 +12.4%
-    </div>
-    <div class="stat-spark" id="followersChart"></div>
-  </section>
-
-  <!-- Total views -->
-  <section class="tile tile--stat tile--stat-sm">
-    <div class="tile__glow"></div>
-    <div class="stat-eyebrow">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-        <circle cx="12" cy="12" r="3"/>
-      </svg>
-      累计播放量
-    </div>
-    <div class="stat-value" id="totalViews">0</div>
-    <div class="stat-trend stat-trend--up">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-        <polyline points="17 6 23 6 23 12"/>
-      </svg>
-      本月 +8.7%
+  <section class="marquee" aria-hidden="true">
+    <div class="marquee__track" id="marqueeTrack">
+      <span>YOUTUBE</span><i>*</i><span>DOUYIN</span><i>*</i><span>RED</span><i>*</i><span>BILIBILI</span><i>*</i><span>KUAISHOU</span><i>*</i><span>TOUTIAO</span><i>*</i><span>XIGUA</span><i>*</i><span>HAOKAN</span><i>*</i>
+      <span>YOUTUBE</span><i>*</i><span>DOUYIN</span><i>*</i><span>RED</span><i>*</i><span>BILIBILI</span><i>*</i><span>KUAISHOU</span><i>*</i><span>TOUTIAO</span><i>*</i><span>XIGUA</span><i>*</i><span>HAOKAN</span><i>*</i>
     </div>
   </section>
 
-  <!-- Platforms count -->
-  <section class="tile tile--stat tile--stat-sm tile--stat-accent">
-    <div class="tile__glow"></div>
-    <div class="stat-eyebrow">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-        <line x1="8" y1="21" x2="16" y2="21"/>
-        <line x1="12" y1="17" x2="12" y2="21"/>
-      </svg>
-      入驻平台
+  <section class="numbers" id="numbers">
+    <div class="num">
+      <span class="num__label">TOTAL FOLLOWERS</span>
+      <span class="num__value" id="totalFollowers">0</span>
+      <span class="num__cn">全网粉丝</span>
     </div>
-    <div class="stat-value stat-value--mono">8</div>
-    <div class="stat-sub">YouTube · B站 · 抖音 · 快手 · 小红书 · 头条 · 西瓜 · 好看</div>
-  </section>
-
-  <!-- Platform cards grid -->
-  <section class="platform-board" id="platformBoard"></section>
-
-  <!-- Footer CTA tile -->
-  <section class="tile tile--cta">
-    <div class="tile__glow"></div>
-    <div class="cta-content">
-      <h3 class="cta-title">开启二胡学习之旅</h3>
-      <p class="cta-sub">点击上方任意平台卡片，即可进入对应频道观看教学视频与直播演奏。</p>
+    <div class="num">
+      <span class="num__label">TOTAL VIEWS</span>
+      <span class="num__value" id="totalViews">0</span>
+      <span class="num__cn">累计播放</span>
     </div>
-    <div class="cta-deco">
-      <div class="cta-eq" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
+    <div class="num num--accent">
+      <span class="num__label">PLATFORMS</span>
+      <span class="num__value">08</span>
+      <span class="num__cn">入驻平台</span>
     </div>
   </section>
+
+  <section class="channels" id="channels">
+    <div class="channels__head">
+      <h2 class="channels__title" data-split>
+        <span class="line">All channels</span>
+        <span class="line line--italic">one click away.</span>
+      </h2>
+      <p class="channels__sub">Pick a platform. Open the channel. The music continues there. <span class="cn">选择平台，直达频道。</span></p>
+    </div>
+    <div class="grid" id="platformBoard"></div>
+  </section>
+
+  <section class="outro">
+    <div class="outro__inner">
+      <p class="outro__eyebrow">START LISTENING</p>
+      <h2 class="outro__title" data-split>
+        <span class="line">Two strings,</span>
+        <span class="line line--italic">infinite reach.</span>
+      </h2>
+      <p class="outro__sub">Tap any card above to jump into a live channel, a lesson, or a performance. <span class="cn">轻点任意卡片，进入教学或演奏现场。</span></p>
+    </div>
+    <div class="outro__bars" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </section>
+
 </main>
 
-<footer class="site-footer">
-  <span class="footer-brand">Erhu Studio</span>
-  <span class="footer-dot">·</span>
-  <span class="footer-note">以弦为媒，以数据为镜</span>
+<footer class="footer">
+  <span class="footer__brand">ERHU/STUDIO</span>
+  <span class="footer__dash"></span>
+  <span>Designed for sound. Built for reach.</span>
+  <span class="footer__dash"></span>
+  <span class="footer__cn">以弦为媒，以数据为镜</span>
 </footer>
 
 <script src="data.js"></script>
