@@ -232,6 +232,205 @@ body {
   height: 100%;
 }
 
+/* ============================================================
+   ERHU THEME — Animated background illustrations
+   ============================================================ */
+
+/* Ethereal erhu silhouette (right side, very subtle) */
+.erhu-silhouette {
+  position: absolute;
+  top: 50%;
+  right: -60px;
+  width: 320px;
+  height: 640px;
+  transform: translateY(-50%);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: silFloat 18s ease-in-out infinite;
+}
+@keyframes silFloat {
+  0%, 100% { transform: translateY(-50%) rotate(-2deg); }
+  50% { transform: translateY(-52%) rotate(1deg); }
+}
+
+/* Vertical sound-wave bars (left and right edges) */
+.sound-wave {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  opacity: 0.35;
+}
+.sound-wave--left { left: 18px; }
+.sound-wave--right { right: 18px; }
+.sound-wave span {
+  display: block;
+  width: 2px;
+  height: 18px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  border-radius: 2px;
+  animation: waveBar 1.6s ease-in-out infinite;
+}
+.sound-wave span:nth-child(odd) { animation-delay: 0.2s; height: 28px; }
+.sound-wave span:nth-child(3n) { animation-delay: 0.5s; height: 12px; }
+.sound-wave span:nth-child(4n) { animation-delay: 0.8s; height: 22px; }
+.sound-wave span:nth-child(5n) { animation-delay: 0.1s; height: 32px; }
+.sound-wave span:nth-child(7n) { animation-delay: 0.6s; height: 14px; }
+@keyframes waveBar {
+  0%, 100% { transform: scaleY(0.3); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* Floating musical notes */
+.floating-notes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.floating-notes .note {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  color: rgba(212, 168, 83, 0.5);
+  animation: noteFloat linear infinite;
+  opacity: 0;
+}
+.note--1 { left: 8%;  font-size: 20px; animation-duration: 22s; animation-delay: 0s;  bottom: -40px; }
+.note--2 { left: 22%; font-size: 16px; animation-duration: 28s; animation-delay: 5s;  bottom: -40px; color: rgba(168,85,247,0.4); }
+.note--3 { left: 42%; font-size: 24px; animation-duration: 25s; animation-delay: 10s; bottom: -40px; }
+.note--4 { left: 62%; font-size: 18px; animation-duration: 30s; animation-delay: 3s;  bottom: -40px; color: rgba(168,85,247,0.35); }
+.note--5 { left: 78%; font-size: 20px; animation-duration: 26s; animation-delay: 8s;  bottom: -40px; }
+.note--6 { left: 90%; font-size: 15px; animation-duration: 24s; animation-delay: 14s; bottom: -40px; color: rgba(168,85,247,0.4); }
+@keyframes noteFloat {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+  10%  { opacity: 0.7; }
+  50%  { transform: translateY(-50vh) rotate(15deg) translateX(30px); }
+  90%  { opacity: 0.5; }
+  100% { transform: translateY(-100vh) rotate(-10deg) translateX(-20px); opacity: 0; }
+}
+
+/* Plucked-string vibration lines */
+.string-vibes {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 400px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+.string {
+  transform-origin: center;
+  animation: stringVibe 6s ease-in-out infinite;
+}
+.string--1 { animation-duration: 5s; }
+.string--2 { animation-duration: 7s; animation-delay: 1s; }
+.string--3 { animation-duration: 9s; animation-delay: 2s; }
+@keyframes stringVibe {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(2px); }
+  50% { transform: translateX(-2px); }
+  75% { transform: translateX(1px); }
+}
+
+/* Header equalizer (replaces old deco chart) */
+.header-eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 60px;
+}
+.header-eq span {
+  display: block;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  border-radius: 2px;
+  animation: eqBar 1.2s ease-in-out infinite;
+}
+.header-eq span:nth-child(1)  { height: 30%; animation-delay: 0s;   }
+.header-eq span:nth-child(2)  { height: 70%; animation-delay: 0.1s; }
+.header-eq span:nth-child(3)  { height: 45%; animation-delay: 0.2s; }
+.header-eq span:nth-child(4)  { height: 90%; animation-delay: 0.3s; }
+.header-eq span:nth-child(5)  { height: 55%; animation-delay: 0.4s; }
+.header-eq span:nth-child(6)  { height: 80%; animation-delay: 0.15s; }
+.header-eq span:nth-child(7)  { height: 35%; animation-delay: 0.35s; }
+.header-eq span:nth-child(8)  { height: 65%; animation-delay: 0.25s; }
+.header-eq span:nth-child(9)  { height: 50%; animation-delay: 0.45s; }
+.header-eq span:nth-child(10) { height: 75%; animation-delay: 0.05s; }
+@keyframes eqBar {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+/* CTA equalizer */
+.cta-eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 40px;
+}
+.cta-eq span {
+  display: block;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  border-radius: 2px;
+  animation: eqBar 1.4s ease-in-out infinite;
+}
+.cta-eq span:nth-child(1) { height: 40%; animation-delay: 0s; }
+.cta-eq span:nth-child(2) { height: 80%; animation-delay: 0.2s; }
+.cta-eq span:nth-child(3) { height: 55%; animation-delay: 0.4s; }
+.cta-eq span:nth-child(4) { height: 95%; animation-delay: 0.1s; }
+.cta-eq span:nth-child(5) { height: 65%; animation-delay: 0.3s; }
+
+/* Chinese title styling */
+.title-cn {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 900;
+  background: linear-gradient(135deg, #D4A853 0%, #E8C97A 50%, #D4A853 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-right: 0.3em;
+  letter-spacing: 0.05em;
+}
+
+/* Gold accent for the erhu theme */
+:root {
+  --gold: #D4A853;
+  --gold-soft: rgba(212, 168, 83, 0.15);
+}
+
+/* Responsive: hide decorative elements on small screens */
+@media (max-width: 860px) {
+  .sound-wave,
+  .erhu-silhouette,
+  .floating-notes .note:nth-child(n+4),
+  .string-vibes { display: none; }
+}
+@media (max-width: 520px) {
+  .floating-notes { display: none; }
+  .header-eq { height: 40px; }
+  .header-eq span { width: 3px; }
+}
+
+/* Reduced motion: collapse all new animations */
+@media (prefers-reduced-motion: reduce) {
+  .sound-wave span,
+  .floating-notes .note,
+  .string,
+  .header-eq span,
+  .cta-eq span,
+  .erhu-silhouette {
+    animation: none !important;
+  }
+  .floating-notes .note { opacity: 0.2; }
+}
+
 /* Mouse cursor glow */
 .cursor-glow {
   position: fixed;
@@ -533,6 +732,40 @@ body {
   pointer-events: none;
 }
 
+/* Gold shimmer sweep on hover (erhu string pluck) */
+.pcard::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(212, 168, 83, 0.08) 50%,
+    transparent 70%
+  );
+  transform: skewX(-15deg);
+  transition: none;
+  pointer-events: none;
+}
+.pcard:hover::after {
+  animation: shimmerSweep 1.2s ease-out;
+}
+@keyframes shimmerSweep {
+  0% { left: -100%; }
+  100% { left: 150%; }
+}
+
+/* Subtle gold ring on hover */
+.pcard:hover {
+  border-color: rgba(212, 168, 83, 0.25);
+  box-shadow: 0 25px 60px -25px rgba(0,0,0,0.6),
+              0 0 0 1px rgba(212, 168, 83, 0.1),
+              0 0 40px -10px rgba(212, 168, 83, 0.15);
+}
+
 .pcard__head {
   display: flex;
   align-items: center;
@@ -566,9 +799,10 @@ body {
   border-radius: 12px;
 }
 .logo-card img {
-  width: 62%;
-  height: 62%;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
+  display: block;
 }
 /* Raster logos (PNG/ICO) are colored; turn them white to match SVG icons */
 .logo-card img:not([src$=".svg"]) {
@@ -687,8 +921,19 @@ body {
 .pcard__bars span:nth-child(5) { height: 60%; animation-delay: 0.6s; }
 
 .pcard:hover .pcard__bars span {
-  animation-duration: 0.5s;
+  animation-duration: 0.45s;
   opacity: 1;
+}
+
+/* Logo icon pluck bounce on hover */
+.pcard:hover .pcard__icon {
+  animation: iconPluck 0.6s var(--ease-spring);
+}
+@keyframes iconPluck {
+  0%   { transform: scale(1) rotate(0deg); }
+  30%  { transform: scale(1.18) rotate(-8deg); }
+  60%  { transform: scale(0.95) rotate(4deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }
 
 @keyframes barDance {
