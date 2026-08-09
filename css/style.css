@@ -389,14 +389,15 @@ body {
 
 /* Chinese title styling */
 .title-cn {
-  font-family: 'Noto Serif SC', serif;
+  display: block;
+  font-family: 'Inter', 'Noto Serif SC', sans-serif;
   font-weight: 900;
   background: linear-gradient(135deg, #D4A853 0%, #E8C97A 50%, #D4A853 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-right: 0.3em;
-  letter-spacing: 0.05em;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.15em;
 }
 
 /* Gold accent for the erhu theme */
@@ -587,6 +588,11 @@ body {
 }
 
 .title-accent {
+  display: block;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.42em;
+  font-weight: 600;
+  letter-spacing: 0.3em;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
