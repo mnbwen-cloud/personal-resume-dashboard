@@ -107,6 +107,8 @@ function fmt(n) {
 
 function countUp(el, target, dur = 1600) {
   if (!el) return;
+  if (el.dataset.done === '1') return;
+  el.dataset.done = '1';
   if (reduceMotion) { el.textContent = fmt(target); return; }
   const start = performance.now();
   function tick(now) {
@@ -116,6 +118,18 @@ function countUp(el, target, dur = 1600) {
     if (p < 1) requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
+}
+
+function whenVisible(el, cb, threshold = 0.15) {
+  if (!el) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      cb();
+      io.disconnect();
+    });
+  }, { threshold, rootMargin: '0px 0px 15% 0px' });
+  io.observe(el);
 }
 
 /* ---------- Card spotlight (mouse position per card) ---------- */
@@ -173,24 +187,28 @@ function render() {
   const cards = Array.from(board.querySelectorAll('.card'));
   cards.forEach(bindSpotlight);
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      cards.forEach((card, i) => {
-        setTimeout(() => {
-          card.classList.add('is-in');
-          const vals = card.querySelectorAll('.stat__val');
-          countUp(vals[0], +card.dataset.f, 1400 + i * 80);
-          countUp(vals[1], +card.dataset.v, 1600 + i * 80);
-        }, i * 70);
-      });
-      countUp(document.getElementById('totalFollowers'), totalFollowers, 2000);
-      countUp(document.getElementById('totalViews'), totalViews, 2200);
-      countUp(document.getElementById('discFollowers'), totalFollowers, 2200);
-      io.disconnect();
+  const totalF = document.getElementById('totalFollowers');
+  const totalV = document.getElementById('totalViews');
+  const discF = document.getElementById('discFollowers');
+  const numbers = document.querySelector('.numbers');
+
+  countUp(discF, totalFollowers, 2200);
+
+  whenVisible(numbers, () => {
+    countUp(totalF, totalFollowers, 2000);
+    countUp(totalV, totalViews, 2200);
+  }, 0.25);
+
+  whenVisible(board, () => {
+    cards.forEach((card, i) => {
+      setTimeout(() => {
+        card.classList.add('is-in');
+        const vals = card.querySelectorAll('.stat__val');
+        countUp(vals[0], +card.dataset.f, 1400 + i * 80);
+        countUp(vals[1], +card.dataset.v, 1600 + i * 80);
+      }, i * 70);
     });
-  }, { threshold: 0.15 });
-  io.observe(board);
+  }, 0.1);
 }
 
 /* ---------- Boot ---------- */
