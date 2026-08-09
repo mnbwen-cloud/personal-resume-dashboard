@@ -1058,6 +1058,29 @@ body {
   .orb--2 { width: 350px; height: 350px; }
 }
 
+/* ---------- Site footer ---------- */
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px 20px 48px;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: rgba(233, 224, 205, 0.45);
+  text-align: center;
+}
+.footer-brand {
+  background: linear-gradient(135deg, #E6C878 0%, #D4A853 50%, #B8893A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+.footer-dot { color: var(--gold); opacity: 0.5; }
+.footer-note { font-style: italic; }
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

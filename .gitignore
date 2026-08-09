@@ -1,8 +1,11 @@
-node_modules/
-.DS_Store
-*.log
-.env
-secrets/
+scripts/
+.trae/skills/
+__pycache__/
+*.pyc
 .tmp/
+secrets/
 seeds_result.json
-scripts/cookies/
+assets/videos/results.json
+assets/videos/tea-ad-test.mp4
+.env
+*.key
