@@ -102,7 +102,7 @@ const PLATFORMS = [
     id: "haokan",
     name: "Haokan",
     handle: "@erhu_video",
-    url: "https://haokan.baidu.com/author/1658692152565148",
+    url: "https://baijiahao.baidu.com/u?app_id=1658692152565148",
     followers: 17000,
     views: 670000,
     unit: "followers",
