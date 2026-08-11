@@ -7,7 +7,7 @@
 <meta name="description" content="Erhu Studio. Eight video platforms, one creator. Followers, views, and direct links to every channel.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -29,9 +29,16 @@
   <div class="topbar__meta">
     <span class="topbar__live"><i></i>LIVE</span>
     <span class="topbar__sep">/</span>
-    <span>UPDATED <b id="boardUpdated"></b></span>
+    <span data-i18n="topbarUpdated">UPDATED</span>
+    <b id="boardUpdated"></b>
     <span class="topbar__sep">/</span>
-    <span>8 PLATFORMS</span>
+    <span data-i18n="topbarPlatforms">8 PLATFORMS</span>
+    <span class="topbar__sep">/</span>
+    <div class="lang" role="group" aria-label="Language selector">
+      <button type="button" data-lang="en" class="lang__btn is-active">EN</button>
+      <button type="button" data-lang="zh" class="lang__btn">中</button>
+      <button type="button" data-lang="ja" class="lang__btn">日</button>
+    </div>
   </div>
 </div>
 
@@ -39,27 +46,18 @@
 
   <header class="hero">
     <div class="hero__left">
-      <p class="hero__kicker">
-        <span>CREATOR</span>
-        <span>ERHU TEACHER</span>
-        <span>GLOBAL REACH</span>
-      </p>
-      <h1 class="hero__title" data-split>
-        <span class="line">Sound of</span>
-        <span class="line line--italic">two strings,</span>
-        <span class="line">eight screens.</span>
-      </h1>
-      <p class="hero__sub" data-cn>
-        One erhu teacher. Eight video platforms. Every follower, every view, every channel, in a single command center.
-        <span class="hero__cn">一弓两弦，八屏共鸣 / 全平台数据中心。</span>
+      <p class="hero__kicker" data-i18n="heroKicker"></p>
+      <h1 class="hero__title" id="heroTitle" data-split></h1>
+      <p class="hero__sub">
+        <span data-i18n="heroSub"></span>
       </p>
       <div class="hero__cta">
         <a class="btn btn--primary" href="#channels">
-          <span>Enter channels</span>
+          <span data-i18n="ctaEnter">Enter channels</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <a class="btn btn--ghost" href="#numbers">
-          <span>See the numbers</span>
+          <span data-i18n="ctaNumbers">See the numbers</span>
         </a>
       </div>
     </div>
@@ -69,14 +67,14 @@
         <div class="disc__ring disc__ring--2"></div>
         <div class="disc__core">
           <span class="disc__num" id="discFollowers">0</span>
-          <span class="disc__label">FOLLOWERS</span>
+          <span class="disc__label" data-i18n="discFollowers">FOLLOWERS</span>
         </div>
         <svg class="disc__text" viewBox="0 0 200 200">
           <defs>
             <path id="circlePath" d="M 100,100 m -80,0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"/>
           </defs>
           <text class="disc__textpath">
-            <textPath href="#circlePath">ERHU STUDIO · GLOBAL CREATOR · TWO STRINGS · </textPath>
+            <textPath href="#circlePath" data-i18n="discRing">ERHU STUDIO · GLOBAL CREATOR · TWO STRINGS · </textPath>
           </text>
         </svg>
       </div>
@@ -92,41 +90,32 @@
 
   <section class="numbers" id="numbers">
     <div class="num">
-      <span class="num__label">TOTAL FOLLOWERS</span>
+      <span class="num__label" data-i18n="numFollowers">TOTAL FOLLOWERS</span>
       <span class="num__value" id="totalFollowers">0</span>
-      <span class="num__cn">全网粉丝</span>
     </div>
     <div class="num">
-      <span class="num__label">TOTAL VIEWS</span>
+      <span class="num__label" data-i18n="numViews">TOTAL VIEWS</span>
       <span class="num__value" id="totalViews">0</span>
-      <span class="num__cn">累计播放</span>
     </div>
     <div class="num num--accent">
-      <span class="num__label">PLATFORMS</span>
+      <span class="num__label" data-i18n="numPlatforms">PLATFORMS</span>
       <span class="num__value">08</span>
-      <span class="num__cn">入驻平台</span>
     </div>
   </section>
 
   <section class="channels" id="channels">
     <div class="channels__head">
-      <h2 class="channels__title" data-split>
-        <span class="line">All channels</span>
-        <span class="line line--italic">one click away.</span>
-      </h2>
-      <p class="channels__sub">Pick a platform. Open the channel. The music continues there. <span class="cn">选择平台，直达频道。</span></p>
+      <h2 class="channels__title" id="channelsTitle" data-split></h2>
+      <p class="channels__sub"><span data-i18n="channelsSub"></span></p>
     </div>
     <div class="grid" id="platformBoard"></div>
   </section>
 
   <section class="outro">
     <div class="outro__inner">
-      <p class="outro__eyebrow">START LISTENING</p>
-      <h2 class="outro__title" data-split>
-        <span class="line">Two strings,</span>
-        <span class="line line--italic">infinite reach.</span>
-      </h2>
-      <p class="outro__sub">Tap any card above to jump into a live channel, a lesson, or a performance. <span class="cn">轻点任意卡片，进入教学或演奏现场。</span></p>
+      <p class="outro__eyebrow" data-i18n="outroEyebrow">START LISTENING</p>
+      <h2 class="outro__title" id="outroTitle" data-split></h2>
+      <p class="outro__sub"><span data-i18n="outroSub"></span></p>
     </div>
     <div class="outro__bars" aria-hidden="true">
       <span></span><span></span><span></span><span></span><span></span>
@@ -139,9 +128,7 @@
 <footer class="footer">
   <span class="footer__brand">ERHU/STUDIO</span>
   <span class="footer__dash"></span>
-  <span>Designed for sound. Built for reach.</span>
-  <span class="footer__dash"></span>
-  <span class="footer__cn">以弦为媒，以数据为镜</span>
+  <span data-i18n="footerTag">Designed for sound. Built for reach.</span>
 </footer>
 
 <script src="data.js"></script>

@@ -19,6 +19,8 @@
   --display: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
   --sans: 'Inter', system-ui, sans-serif;
   --mono: 'Space Mono', ui-monospace, monospace;
+  --cjk-sc: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --cjk-jp: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
 
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -126,6 +128,44 @@ img { display: block; max-width: 100%; }
   );
   opacity: 0.35;
   mix-blend-mode: multiply;
+}
+
+/* ============================================================
+   LANGUAGE SWITCHER
+   ============================================================ */
+.lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  margin-left: 4px;
+}
+.lang__btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--ink-dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 5px 9px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  min-width: 32px;
+  min-height: 28px;
+}
+.lang__btn:hover { color: var(--ink); }
+.lang__btn.is-active {
+  background: var(--acid);
+  color: #000;
+}
+.lang__btn:focus-visible {
+  outline: 2px solid var(--acid);
+  outline-offset: 2px;
 }
 
 /* ============================================================
@@ -245,9 +285,10 @@ img { display: block; max-width: 100%; }
   display: block;
   overflow: hidden;
 }
-.hero__title .line__inner {
+[data-split] .line__inner {
   display: inline-block;
   will-change: transform;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .hero__title .line > * {
   display: inline-block;
@@ -762,6 +803,81 @@ img { display: block; max-width: 100%; }
   font-family: var(--display);
   text-transform: none;
   letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   CJK TYPOGRAPHY (Chinese / Japanese)
+   ============================================================ */
+body[lang="zh"] {
+  --display: 'Bricolage Grotesque', 'Noto Sans SC', system-ui, sans-serif;
+  --sans: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+  --mono: 'Space Mono', 'Noto Sans SC', ui-monospace, monospace;
+}
+body[lang="ja"] {
+  --display: 'Bricolage Grotesque', 'Noto Sans JP', system-ui, sans-serif;
+  --sans: 'Inter', 'Noto Sans JP', system-ui, sans-serif;
+  --mono: 'Space Mono', 'Noto Sans JP', ui-monospace, monospace;
+}
+
+/* CJK display headings: tighter scale, no negative tracking, no faux italic */
+body[lang="zh"] .hero__title,
+body[lang="ja"] .hero__title {
+  font-size: clamp(2.6rem, 7.2vw, 5.8rem);
+  letter-spacing: 0;
+}
+body[lang="zh"] .channels__title,
+body[lang="ja"] .channels__title {
+  font-size: clamp(2rem, 4.6vw, 3.4rem);
+  letter-spacing: 0;
+}
+body[lang="zh"] .outro__title,
+body[lang="ja"] .outro__title {
+  font-size: clamp(2.2rem, 6vw, 4.6rem);
+  letter-spacing: 0;
+}
+body[lang="zh"] .line--italic,
+body[lang="ja"] .line--italic {
+  font-style: normal;
+  font-weight: 900;
+}
+
+/* CJK mono/uppercase labels: use CJK sans, normal case, gentle tracking */
+body[lang="zh"] .num__label,
+body[lang="ja"] .num__label,
+body[lang="zh"] .stat__lab,
+body[lang="ja"] .stat__lab,
+body[lang="zh"] .disc__label,
+body[lang="ja"] .disc__label,
+body[lang="zh"] .hero__kicker,
+body[lang="ja"] .hero__kicker,
+body[lang="zh"] .outro__eyebrow,
+body[lang="ja"] .outro__eyebrow,
+body[lang="zh"] .card__handle,
+body[lang="ja"] .card__handle {
+  font-family: var(--sans);
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+body[lang="zh"] .hero__kicker span,
+body[lang="ja"] .hero__kicker span {
+  letter-spacing: 0.04em;
+}
+body[lang="zh"] .card__name,
+body[lang="ja"] .card__name {
+  font-size: 1.6rem;
+  letter-spacing: 0;
+}
+body[lang="zh"] .num__value,
+body[lang="ja"] .num__value {
+  letter-spacing: -0.02em;
+}
+body[lang="zh"] .hero__sub,
+body[lang="ja"] .hero__sub,
+body[lang="zh"] .channels__sub,
+body[lang="ja"] .channels__sub,
+body[lang="zh"] .outro__sub,
+body[lang="ja"] .outro__sub {
+  line-height: 1.75;
 }
 
 /* ============================================================
