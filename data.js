@@ -112,4 +112,4 @@ const PLATFORMS = [
   }
 ];
 
-const BOARD_UPDATED_AT = "Aug 13, 2026";
+const BOARD_UPDATED_AT = "Aug 14, 2026";
