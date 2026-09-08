@@ -18,7 +18,7 @@ const PLATFORMS = [
     name: "YouTube",
     handle: "@727601375",
     url: "https://www.youtube.com/@727601375",
-    followers: 1700,
+    followers: 1710,
     views: 80000,
     unit: "subscribers",
     viewsUnit: "views",
@@ -55,7 +55,7 @@ const PLATFORMS = [
     name: "Bilibili",
     handle: "UID: 32922418",
     url: "https://space.bilibili.com/32922418",
-    followers: 6291,
+    followers: 6290,
     views: 456000,
     unit: "followers",
     viewsUnit: "views",
@@ -112,4 +112,4 @@ const PLATFORMS = [
   }
 ];
 
-const BOARD_UPDATED_AT = "Sep 7, 2026";
+const BOARD_UPDATED_AT = "Sep 8, 2026";
