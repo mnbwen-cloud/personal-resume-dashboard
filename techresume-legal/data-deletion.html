@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Deletion · TechResume</title>
+<meta name="description" content="How to delete your TechResume account and all associated data — in-app or by request.">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F0D0B'/%3E%3Ctext x='16' y='23' font-size='18' font-family='Georgia,serif' font-style='italic' fill='%23E8552F' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0F0D0B;
+    --ink-2: #161310;
+    --ink-3: #1E1915;
+    --paper: #F7F3EC;
+    --muted: #A89E92;
+    --faint: #6E6459;
+    --sienna: #E8552F;
+    --sienna-deep: #C2410C;
+    --hairline: rgba(247, 243, 236, 0.14);
+    --hairline-soft: rgba(247, 243, 236, 0.08);
+    --sans: 'Archivo', -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --serif-it: 'Fraunces', Georgia, serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--sienna); color: var(--paper); }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--ink); }
+  ::-webkit-scrollbar-thumb { background: var(--ink-3); border-radius: 5px; border: 2px solid var(--ink); }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  header.site {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  header.site .wrap { display: flex; align-items: center; justify-content: space-between; }
+  .brand {
+    font-family: var(--serif-it);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--paper);
+    text-decoration: none;
+    letter-spacing: 0.2px;
+  }
+  .brand span { color: var(--sienna); }
+  .back {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    padding: 8px 16px;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .back:hover { color: var(--sienna); border-color: var(--sienna); }
+
+  main { padding: 72px 0 40px; }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sienna);
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: var(--serif-it);
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(34px, 6vw, 52px);
+    line-height: 1.12;
+    margin-bottom: 14px;
+  }
+  .updated {
+    font-size: 14px;
+    color: var(--faint);
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 44px 0 14px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  h2 .num {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 13px;
+    color: var(--sienna);
+    font-weight: 600;
+  }
+  p { color: var(--muted); margin-bottom: 14px; }
+  p strong, li strong { color: var(--paper); font-weight: 600; }
+  ul, ol { margin: 0 0 14px 22px; }
+  li { color: var(--muted); margin-bottom: 8px; }
+  a { color: var(--sienna); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .card {
+    background: var(--ink-2);
+    border: 1px solid var(--hairline-soft);
+    border-radius: 14px;
+    padding: 24px 26px;
+    margin: 20px 0;
+  }
+  .card p:last-child, .card ul:last-child, .card ol:last-child { margin-bottom: 0; }
+  .contact-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin-top: 8px;
+  }
+  .contact-line a { font-weight: 600; font-size: 15px; }
+
+  .steps {
+    list-style: none;
+    margin-left: 0;
+    counter-reset: step;
+  }
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 44px;
+    margin-bottom: 14px;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--ink-3);
+    border: 1px solid var(--hairline);
+    color: var(--sienna);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .note {
+    border-left: 2px solid var(--sienna);
+    padding: 4px 0 4px 18px;
+    margin: 20px 0;
+  }
+  .note p { margin-bottom: 0; }
+
+  footer.site {
+    margin-top: 72px;
+    padding: 32px 0 48px;
+    border-top: 1px solid var(--hairline-soft);
+  }
+  footer.site p { font-size: 13px; color: var(--faint); }
+  footer.site .links { margin-top: 10px; display: flex; gap: 22px; flex-wrap: wrap; }
+  footer.site .links a { font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">Tech<span>Resume</span></a>
+    <a class="back" href="index.html">← Back to home</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="eyebrow">Legal</p>
+    <h1>Data Deletion</h1>
+    <p class="updated">Last updated: August 30, 2026</p>
+
+    <p>You can delete your TechResume account and all associated data at any time. Deletion is permanent and cannot be undone. This page describes exactly what is deleted and the two ways to request it.</p>
+
+    <h2><span class="num">01</span> Delete in the App (Immediate)</h2>
+    <p>The fastest way is directly inside the TechResume Android app:</p>
+    <ol class="steps">
+      <li>Open TechResume and go to the <strong>Profile</strong> tab.</li>
+      <li>Choose <strong>Delete account</strong>.</li>
+      <li>Read the confirmation, then confirm twice — on the final step you type <strong>DELETE</strong> to confirm.</li>
+      <li>Your account and data are permanently deleted immediately.</li>
+    </ol>
+    <div class="note">
+      <p>This permanently deletes your account, subscription record, resumes, and job applications on this device and on our servers. This action cannot be undone.</p>
+    </div>
+
+    <h2><span class="num">02</span> Request Deletion by Email</h2>
+    <p>If you no longer have the app installed, or cannot sign in, you can request deletion from our support team:</p>
+    <div class="card">
+      <p>Send an email to <a href="mailto:numbtibag@gmail.com">numbtibag@gmail.com</a> from the address associated with your account, with the subject <strong>"Data Deletion Request"</strong>. We respond within <strong>72 hours</strong> and complete verified deletion requests promptly.</p>
+      <p>To help us verify your request, please include:</p>
+      <ul>
+        <li>The email address registered with your TechResume account.</li>
+        <li>A clear statement that you want your account and all associated data deleted.</li>
+      </ul>
+    </div>
+
+    <h2><span class="num">03</span> What Gets Deleted</h2>
+    <p>When your account is deleted, the following are permanently removed:</p>
+    <ul>
+      <li>Your account record and sign-in credentials.</li>
+      <li>Your subscription and entitlement record on our servers.</li>
+      <li>All resume content, work experience, skills, projects, and education entries.</li>
+      <li>Cover letters, interview prep content, job applications, and tracked pipeline data.</li>
+      <li>Feedback and AI-content reports you submitted.</li>
+      <li>The local encrypted data vault on your device.</li>
+    </ul>
+    <p>If you enabled optional cloud backup to your own Google Drive, deleting your account does not remove files already stored in your personal Drive — you can delete those directly in Google Drive.</p>
+
+    <h2><span class="num">04</span> Subscriptions</h2>
+    <p>Deleting your account does <strong>not</strong> automatically cancel an active Google Play subscription, because billing is managed by Google between you and Google Play. To stop future renewals, cancel your subscription in Google Play before or after deleting your account:</p>
+    <ul>
+      <li>Open <strong>Google Play Store → Profile → Payments &amp; subscriptions → Subscriptions</strong>, select TechResume, and tap <strong>Cancel subscription</strong>.</li>
+    </ul>
+    <p>For refund questions, contact <a href="mailto:numbtibag@gmail.com">numbtibag@gmail.com</a> or request through Google Play per its refund policy.</p>
+
+    <h2><span class="num">05</span> Retention &amp; Timeline</h2>
+    <p>In-app deletion takes effect immediately for your account and server-side data. Email requests are acknowledged within 72 hours and completed promptly after verification. We retain no account data after deletion except where a short retention period is legally required, after which it is permanently removed.</p>
+
+    <h2><span class="num">06</span> Contact</h2>
+    <div class="card">
+      <p>Questions about deletion or your data? Reach us any time:</p>
+      <div class="contact-line">
+        <a href="mailto:numbtibag@gmail.com">numbtibag@gmail.com</a>
+        <a href="privacy.html">Privacy Policy →</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p><strong>© 2026 TechResume</strong> · Made with ink and embers.</p>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="data-deletion.html">Data Deletion</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
