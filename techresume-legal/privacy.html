@@ -155,7 +155,7 @@
   <div class="wrap">
     <p class="eyebrow">Legal</p>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: August 30, 2026 · Effective date: August 30, 2026</p>
+    <p class="updated">Last updated: August 31, 2026 · Effective date: August 31, 2026</p>
 
     <p>TechResume ("we", "us", "our") is a native Android resume studio. This policy explains exactly what information the TechResume app collects, why we collect it, how it is protected, and the rights you have over it. We design the app to collect the minimum data necessary and to keep your resume data on your device wherever possible.</p>
 
@@ -176,15 +176,20 @@
     <p>We rely on a small number of processors to deliver the app. Each processes data only to provide its service to us:</p>
     <ul>
       <li><strong>Google Play Billing</strong> — subscription purchases and renewal management. Google handles payment details; we never see your card number.</li>
-      <li><strong>Firebase (Google)</strong> — email authentication only.</li>
+      <li><strong>Google Sign-In / Firebase Auth</strong> — email registration and sign-in. We receive an OAuth identity token only; we do not request access to your Google contacts or account list.</li>
       <li><strong>Google Drive (AppData folder)</strong> — optional cloud backup, stored in your own Drive and encrypted client-side.</li>
       <li><strong>DeepSeek API</strong> — AI text processing (resume optimization, cover letters, interview prep). Only the resume text needed for a request is sent, and it is used solely to generate your result.</li>
       <li><strong>Cloudflare</strong> — edge proxy and infrastructure for international users.</li>
+      <li><strong>Tencent Cloud SCF</strong> — AI proxy relay, quota counting, and trial verification on our mainland-China infrastructure. User content is not persisted.</li>
+      <li><strong>GitHub API</strong> — public repository metadata, and only when you choose to import from GitHub.</li>
+      <li><strong>Firebase Remote Config</strong> — downloads configuration (for example, paywall test groups). No personal data is uploaded.</li>
+      <li><strong>Google Analytics 4 (Measurement Protocol)</strong> — anonymous usage events for the trial funnel, sent directly from your device with an anonymous client ID. Fully disabled when no measurement ID is configured.</li>
+      <li><strong>Sentry</strong> — crash stack traces and contextual tags, used solely to fix stability issues. You can turn it off in Android Settings → Privacy → Usage &amp; diagnostics.</li>
     </ul>
-    <p>We do not share your personal data with third parties for their own marketing purposes.</p>
+    <p>We do not share your personal data with third parties for their own marketing purposes, and never with advertising networks or data brokers.</p>
 
     <h2><span class="num">04</span> Data Retention</h2>
-    <p>Your data is retained as long as your account is active. Local resume data remains under your control on your device. When you delete your account, your account record, subscription data, and server-side content are permanently removed, as described on our <a href="data-deletion.html">Data Deletion</a> page. Backup copies held in your connected cloud storage are removed according to that provider's retention.</p>
+    <p>Your data is retained as long as your account is active, and local resume data remains under your control on your device. When you delete your account, the local encrypted vault is removed immediately and server-side account data is permanently removed within <strong>30 days</strong> — or within <strong>60 days</strong> for users in the EU/UK exercising GDPR rights and <strong>45 days</strong> for California (CCPA) requests, as described on our <a href="data-deletion.html">Data Deletion</a> page. Two narrow exceptions, isolated from our product systems, may outlast those windows: anti-fraud and security audit logs are kept for a maximum of <strong>90 days</strong> and then deleted or fully anonymized, and tax or accounting records we are legally required to keep may be retained for up to <strong>7 years</strong>. Backup copies held in your connected cloud storage are removed according to that provider's retention.</p>
 
     <h2><span class="num">05</span> Your Rights</h2>
     <p>You have the right to access, correct, export, or delete your personal data at any time:</p>
