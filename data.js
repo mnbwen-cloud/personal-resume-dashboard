@@ -43,7 +43,7 @@ const PLATFORMS = [
     name: "RED",
     handle: "你好二胡",
     url: "https://www.xiaohongshu.com/user/profile/575567f250c4b430424a7bda",
-    followers: 412,
+    followers: 413,
     views: 899,
     unit: "followers",
     viewsUnit: "views",
@@ -112,4 +112,4 @@ const PLATFORMS = [
   }
 ];
 
-const BOARD_UPDATED_AT = "Sep 21, 2026";
+const BOARD_UPDATED_AT = "Sep 22, 2026";
