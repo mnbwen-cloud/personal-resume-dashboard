@@ -191,20 +191,20 @@
   <div class="wrap">
     <p class="eyebrow">Legal</p>
     <h1>Data Deletion</h1>
-    <p class="updated">Last updated: August 31, 2026</p>
+    <p class="updated">Last updated: September 21, 2026</p>
 
-    <p>You can delete your TechResume account and all associated data at any time. Deletion is permanent and cannot be undone. This page describes exactly what is deleted and the two ways to request it.</p>
+    <p>You can delete your TechResume account and all associated data at any time. Deletion is permanent and cannot be undone. This page describes exactly what is deleted, the two ways to request it, and the timelines that apply.</p>
 
     <h2><span class="num">01</span> Delete in the App (Fastest)</h2>
     <p>The fastest way is directly inside the TechResume Android app:</p>
     <ol class="steps">
       <li>Open TechResume and go to the <strong>Profile</strong> tab.</li>
-      <li>Choose <strong>Delete account</strong>.</li>
+      <li>Scroll to the <strong>Danger Zone</strong> section and choose <strong>Delete account</strong>.</li>
       <li>Read the confirmation, then confirm twice — on the final step you type <strong>DELETE</strong> to confirm.</li>
       <li>Your account and data are scheduled for permanent deletion right away.</li>
     </ol>
     <div class="note">
-      <p>This permanently deletes your account, subscription record, resumes, and job applications on this device and on our servers. The local encrypted vault on your device is removed immediately; our servers then purge your account data within the timeframes described in section 05. This action cannot be undone.</p>
+      <p>This permanently deletes your account, subscription record, resumes, and job applications on this device and on our backend. The local encrypted vault on your device is removed immediately; our backend then purges your account data within the timeframes described in section 05. This action cannot be undone.</p>
     </div>
 
     <h2><span class="num">02</span> Request Deletion by Email</h2>
@@ -215,20 +215,23 @@
       <ul>
         <li>The email address registered with your TechResume account.</li>
         <li>A clear statement that you want your account and all associated data deleted.</li>
+        <li>(Optional) the approximate sign-up date or last sign-in date to help us locate your record.</li>
       </ul>
+      <p style="margin-top:14px;">We will reply from <a href="mailto:numbtibag@gmail.com">numbtibag@gmail.com</a> confirming the deletion or asking for any additional verification we need.</p>
     </div>
 
     <h2><span class="num">03</span> What Gets Deleted</h2>
-    <p>When your account is deleted, the following are permanently removed:</p>
+    <p>When your account is deleted, the following are permanently removed from our backend within the timelines described in section 05:</p>
     <ul>
       <li>Your account record and sign-in credentials.</li>
-      <li>Your subscription and entitlement record on our servers.</li>
+      <li>Your subscription and entitlement record in our backend.</li>
       <li>All resume content, work experience, skills, projects, and education entries.</li>
       <li>Cover letters, interview prep content, job applications, and tracked pipeline data.</li>
       <li>Feedback and AI-content reports you submitted.</li>
       <li>The local encrypted data vault on your device.</li>
+      <li>Any unencrypted JSON snapshot previously written to your device's <strong>Downloads</strong> folder (we recommend you also delete it manually, since it lives outside our backend).</li>
     </ul>
-    <p>If you enabled optional cloud backup to your own Google Drive, deleting your account does not remove files already stored in your personal Drive — you can delete those directly in Google Drive.</p>
+    <p>If you enabled optional cloud backup to your own Google Drive, deleting your account does not remove files already stored in your personal Drive — you can delete those directly in Google Drive, or contact us and we will guide you through removing the AppData backup.</p>
 
     <h2><span class="num">04</span> Subscriptions</h2>
     <p>Deleting your account does <strong>not</strong> automatically cancel an active Google Play subscription, because billing is managed by Google between you and Google Play. To stop future renewals, cancel your subscription in Google Play before or after deleting your account:</p>
@@ -238,15 +241,21 @@
     <p>For refund questions, contact <a href="mailto:numbtibag@gmail.com">numbtibag@gmail.com</a> or request through Google Play per its refund policy.</p>
 
     <h2><span class="num">05</span> Retention &amp; Timeline</h2>
-    <p>Deletion takes effect immediately for the local encrypted vault on your device. Server-side account data is permanently removed within <strong>30 days</strong> of your request — or within <strong>60 days</strong> for users in the EU/UK exercising GDPR rights, and <strong>45 days</strong> for California (CCPA) requests.</p>
-    <p>Two narrow exceptions may outlast those windows, and both are isolated from our product systems: anti-fraud and security audit logs are kept for a maximum of <strong>90 days</strong> and are then deleted or fully anonymized; and tax or accounting records that we are legally required to keep may be retained for up to <strong>7 years</strong>. No other account data is retained after deletion.</p>
+    <p>Deletion takes effect immediately for the local encrypted vault on your device. For server-side account data, we acknowledge email requests within <strong>72 hours</strong>, and verified deletions are completed within the following timelines:</p>
+    <ul>
+      <li><strong>30 days</strong> — default regions (US, Asia-Pacific, rest of world).</li>
+      <li><strong>45 days</strong> — California residents under the CCPA.</li>
+    </ul>
+    <p>Three narrow exceptions may outlast those windows, and all are isolated from product systems: security and anti-abuse audit logs (request metadata without resume content) are retained for <strong>90 days</strong> after deletion for fraud prevention and legal compliance, then permanently deleted or fully anonymized; to prevent repeated abuse of free trials, we keep a device-level trial-claim record containing only a device identifier and a claim timestamp (no resume content) for up to <strong>365 days</strong> — this record is not removed when you delete your account, and its expiry does not restore a new free trial; and tax, accounting, or anti-money-laundering records that we are legally required to keep may be retained for up to <strong>7 years</strong>, isolated from product systems and deleted as soon as the legal window closes. No other account data is retained after deletion.</p>
+    <p>For California residents, the lawful basis for processing deletion requests is CCPA §1798.105. For mainland China users, the basis is PIPL Article 47.</p>
 
     <h2><span class="num">06</span> Contact</h2>
     <div class="card">
-      <p>Questions about deletion or your data? Reach us any time:</p>
+      <p>Questions about deletion or your data? Reach us any time. You may also lodge a complaint with your local data protection authority; California residents may contact the California Attorney General.</p>
       <div class="contact-line">
         <a href="mailto:numbtibag@gmail.com">numbtibag@gmail.com</a>
         <a href="privacy.html">Privacy Policy →</a>
+        <span>In-app: Profile → Danger Zone → Delete account</span>
       </div>
     </div>
   </div>
@@ -258,6 +267,7 @@
     <div class="links">
       <a href="index.html">Home</a>
       <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
       <a href="data-deletion.html">Data Deletion</a>
     </div>
   </div>

@@ -155,7 +155,7 @@
   <div class="wrap">
     <p class="eyebrow">Legal</p>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: August 31, 2026 · Effective date: August 31, 2026</p>
+    <p class="updated">Last updated: September 25, 2026 · Effective date: September 25, 2026</p>
 
     <p>TechResume ("we", "us", "our") is a native Android resume studio. This policy explains exactly what information the TechResume app collects, why we collect it, how it is protected, and the rights you have over it. We design the app to collect the minimum data necessary and to keep your resume data on your device wherever possible.</p>
 
@@ -163,14 +163,17 @@
     <p>We collect only the information necessary to provide our services:</p>
     <ul>
       <li><strong>Account data</strong> — your email address, used solely for sign-in, subscription verification, and account recovery.</li>
-      <li><strong>Resume content</strong> — the resume data, work experience, skills, and documents you create or import (including optional GitHub imports).</li>
+      <li><strong>Resume content</strong> — the resume data, work experience, skills, and documents you create or import.</li>
+      <li><strong>GitHub profile data</strong> — only if you use GitHub Import: read-only public profile (name, avatar, public email), public repositories, languages, and public commit activity. Private repositories are never accessed.</li>
       <li><strong>Subscription status</strong> — your plan tier and entitlement state, used to unlock paid features.</li>
-      <li><strong>Feedback and reports</strong> — content you voluntarily submit through in-app feedback or AI-content reporting.</li>
+      <li><strong>H-1B case data</strong> — case number, status, and dates you enter for tracking; stored on your device only unless you enable cloud sync.</li>
+      <li><strong>Feedback and AI-content reports</strong> — content you voluntarily submit through in-app feedback or AI-content reporting (message text, an excerpt of the AI output you report, plus your user ID, app version, device model and OS version), used solely to investigate reports and improve the service.</li>
     </ul>
     <p>We do <strong>not</strong> collect contacts, photos, precise location, call logs, SMS, or device identifiers for advertising. We do not sell your personal data and never share it with advertising or data-broker networks.</p>
 
     <h2><span class="num">02</span> Data Security</h2>
-    <p>All data is encrypted using <strong>AES-256-GCM</strong> encryption. Your resume data is stored locally on your device in an encrypted SQLCipher vault, and is only backed up to your own cloud storage (e.g., Google Drive) when you choose to enable sync. API keys for AI processing never ship inside the app; all AI requests pass through our signed proxy.</p>
+    <p>Your data is protected with standard encryption: on-device storage uses <strong>SQLCipher (AES-256)</strong>, optional cloud backups are encrypted client-side with <strong>AES-256-GCM</strong>, and all network traffic uses <strong>TLS 1.3</strong>. Your resume data is stored locally on your device in that encrypted SQLCipher vault, and is only backed up to your own cloud storage (e.g., Google Drive AppData folder) when you choose to enable sync. API keys for AI processing never ship inside the app; all AI requests pass through our signed proxy.</p>
+    <p>Cloud backups are AES-256-GCM encrypted before upload and stored in your own Google Drive AppData folder (invisible to other apps). When you use Export, files are written <strong>unencrypted</strong> so other apps can open them: PDF exports and HTML portfolios go to the app's external files folder (<strong>Android/data/com.techresume.app/files/</strong> — readable by file managers granted all-files access), and a translation you choose to save to <strong>Downloads/</strong> becomes readable by any app with storage access. CSV exports are written to a private cache and only leave via the share sheet you control. Delete exported files when you no longer need them; they are not protected by the app passcode. Our AI proxy does not store your resume content on our backend, does not attach your account identifiers to AI requests, and we do not use your resume data to train any model. To reduce cost and latency, an identical AI request may be served from a short-lived response cache (up to 2 hours for most features, up to 24 hours for interview-guidance prompts); cache entries store only the generated reply, keyed by a one-way SHA-256 hash of the request — your submitted text is never stored in plaintext, and cached replies are not associated with your account.</p>
 
     <h2><span class="num">03</span> Third-Party Services</h2>
     <p>We rely on a small number of processors to deliver the app. Each processes data only to provide its service to us:</p>
@@ -178,46 +181,61 @@
       <li><strong>Google Play Billing</strong> — subscription purchases and renewal management. Google handles payment details; we never see your card number.</li>
       <li><strong>Google Sign-In / Firebase Auth</strong> — email registration and sign-in. We receive an OAuth identity token only; we do not request access to your Google contacts or account list.</li>
       <li><strong>Google Drive (AppData folder)</strong> — optional cloud backup, stored in your own Drive and encrypted client-side.</li>
-      <li><strong>DeepSeek API</strong> — AI text processing (resume optimization, cover letters, interview prep). Only the resume text needed for a request is sent, and it is used solely to generate your result.</li>
-      <li><strong>Cloudflare</strong> — edge proxy and infrastructure for international users.</li>
-      <li><strong>Tencent Cloud SCF</strong> — AI proxy relay, quota counting, and trial verification on our mainland-China infrastructure. User content is not persisted.</li>
+      <li><strong>DeepSeek API (China)</strong> — AI text processing (resume optimization, cover letters, interview prep). Only the text needed for a request is sent, without your account identifiers, solely to generate your result. DeepSeek operates under its own Open Platform terms; we will update this policy if its data practices change materially.</li>
+      <li><strong>Cloudflare</strong> — edge proxy and infrastructure for international users; account and subscription records (email, user ID, hashed password, plan) in Cloudflare KV.</li>
+      <li><strong>Tencent Cloud SCF</strong> — AI proxy relay, quota counting, and trial verification for mainland-China installs (rented serverless infrastructure). User content is not persisted.</li>
       <li><strong>GitHub API</strong> — public repository metadata, and only when you choose to import from GitHub.</li>
+      <li><strong>Firebase Auth + Firestore</strong> — account authentication and subscription entitlement records.</li>
       <li><strong>Firebase Remote Config</strong> — downloads configuration (for example, paywall test groups). No personal data is uploaded.</li>
-      <li><strong>Google Analytics 4 (Measurement Protocol)</strong> — anonymous usage events for the trial funnel, sent directly from your device with an anonymous client ID. Fully disabled when no measurement ID is configured.</li>
-      <li><strong>Sentry</strong> — crash stack traces and contextual tags, used solely to fix stability issues. You can turn it off in Android Settings → Privacy → Usage &amp; diagnostics.</li>
+      <li><strong>Resend</strong> — transactional email (address verification, sign-in OTP codes). Processes your email address only.</li>
+      <li><strong>Google Analytics 4 (Measurement Protocol)</strong> — anonymous usage events for the trial funnel, sent directly from your device with a stable anonymous client ID derived from the device (not an advertising ID). Fully disabled when no measurement ID is configured, and switched off by default with an in-app opt-out at <strong>Profile → About → "Anonymous usage insights"</strong>.</li>
+      <li><strong>Sentry (sentry.io)</strong> — crash stack traces and contextual tags with tokens/emails/phone numbers scrubbed before send, used solely to fix stability issues; disabled entirely when no DSN is configured.</li>
     </ul>
     <p>We do not share your personal data with third parties for their own marketing purposes, and never with advertising networks or data brokers.</p>
 
     <h2><span class="num">04</span> Data Retention</h2>
-    <p>Your data is retained as long as your account is active, and local resume data remains under your control on your device. When you delete your account, the local encrypted vault is removed immediately and server-side account data is permanently removed within <strong>30 days</strong> — or within <strong>60 days</strong> for users in the EU/UK exercising GDPR rights and <strong>45 days</strong> for California (CCPA) requests, as described on our <a href="data-deletion.html">Data Deletion</a> page. Two narrow exceptions, isolated from our product systems, may outlast those windows: anti-fraud and security audit logs are kept for a maximum of <strong>90 days</strong> and then deleted or fully anonymized, and tax or accounting records we are legally required to keep may be retained for up to <strong>7 years</strong>. Backup copies held in your connected cloud storage are removed according to that provider's retention.</p>
+    <p>Your data is retained as long as your account is active, and local resume data remains under your control on your device. When you delete your account, the local encrypted vault is removed immediately and server-side account data is permanently removed within <strong>30 days</strong> — or within <strong>45 days</strong> for California (CCPA) requests, as described on our <a href="data-deletion.html">Data Deletion</a> page. Three narrow exceptions, isolated from product systems, may outlast those windows: anti-fraud and security audit logs are kept for a maximum of <strong>90 days</strong> and then deleted or fully anonymized; a device-level record of free-trial claims — containing only a device identifier and a claim timestamp, with no resume content — is kept for up to <strong>365 days</strong> to prevent repeated abuse of free trials, is not deleted when you delete your account, and does not restore a new free trial once it expires; and tax or accounting records we are legally required to keep may be retained for up to <strong>7 years</strong>. Deleting your account also removes the feedback and AI-content reports attached to it. Anonymous usage statistics may be retained indefinitely in aggregated form. Backup copies held in your connected cloud storage are removed according to that provider's retention.</p>
 
     <h2><span class="num">05</span> Your Rights</h2>
-    <p>You have the right to access, correct, export, or delete your personal data at any time:</p>
+    <p>You have the right to access, correct, export, delete, restrict processing of, and object to processing of your personal data, including the right to data portability (CCPA §1798.100 et seq. for California residents):</p>
     <ul>
       <li><strong>Access &amp; correction</strong> — all of your resume data is visible and editable directly in the app.</li>
-      <li><strong>Deletion</strong> — delete your account and all associated data in-app via <strong>Profile → Delete account</strong>, or request deletion through our <a href="data-deletion.html">Data Deletion</a> page.</li>
-      <li><strong>Export</strong> — export your resume as PDF at any time.</li>
+      <li><strong>Deletion</strong> — delete your account and all associated data in-app via <strong>Profile → Danger Zone → Delete account</strong>, or request deletion through our <a href="data-deletion.html">Data Deletion</a> page. Deletion completes within 30 days by default, or 45 days for California under CCPA.</li>
+      <li><strong>Export &amp; portability</strong> — export your resume as PDF or JSON at any time, or request a machine-readable copy of all personal data we hold about you.</li>
+      <li><strong>Restriction &amp; objection</strong> — you can request restriction of processing or object to processing based on legitimate interest; we will respond within 30 days.</li>
+      <li><strong>Opt out of sale / sharing</strong> — California residents have the right to opt out of the sale or sharing of personal information. We do <strong>not</strong> sell personal data and do not share it for cross-context behavioral advertising (no advertising SDKs or data-broker integrations), so there is nothing to opt out of; you may still submit a verifiable request and we will confirm in writing.</li>
+      <li><strong>Withdraw consent</strong> — where processing is based on consent (e.g., optional AI features), you can withdraw it at any time without affecting prior lawful processing.</li>
     </ul>
+    <p>To exercise any right, contact us at <a href="mailto:numbtibag@gmail.com">numbtibag@gmail.com</a>, or in-app via <strong>Profile → Danger Zone → Delete account</strong> or <strong>Profile → Cloud Sync</strong>. We acknowledge within 72 hours and respond substantively within 30 days, or 45 days for CCPA requests, extendable once for complex requests with written notice.</p>
 
     <h2><span class="num">06</span> AI-Generated Content</h2>
     <p>TechResume includes AI writing features. Content you send for AI processing is transmitted to our AI provider solely to generate your requested result. AI output may contain errors and should be reviewed before use. You can report offensive or inaccurate AI output directly within the chat using the report option, and we review submitted reports.</p>
 
     <h2><span class="num">07</span> Children</h2>
-    <p>TechResume is intended for professionals and job seekers and is not directed to children under 16 (or the minimum age in your jurisdiction). We do not knowingly collect personal data from children. If you believe a child has provided us data, contact us and we will delete it within 7 days.</p>
+    <p>TechResume is intended for professionals and job seekers and is not directed to children. You must be at least <strong>16</strong> years old to use the app. We do not knowingly collect personal data from children under 16. If you believe a child under 16 has provided us data, contact us at <a href="mailto:numbtibag@gmail.com">numbtibag@gmail.com</a> and we will delete it within 7 days.</p>
 
     <h2><span class="num">08</span> International Users</h2>
-    <p>The app is served through regional infrastructure (Cloudflare for international users, Tencent Cloud for users in mainland China). Data is processed according to this policy regardless of region, and appropriate safeguards apply to any cross-border transfer.</p>
+    <p>The app is served through regional infrastructure: <strong>Cloudflare Workers</strong> for international users (primary data path) and <strong>Tencent Cloud SCF</strong> for users in mainland China. Each region routes to its own AI proxy that signs requests and forwards only the minimum data needed to the <strong>DeepSeek API</strong> (China); our proxy does not persist your resume content, and DeepSeek's own log-retention practices are governed by its Open Platform terms.</p>
+    <p>Because DeepSeek and Tencent Cloud are located in China, the technical safeguards described above apply to all transfers: each AI request is forwarded individually, no account identifiers are attached, and no resume content is stored on our backend. For users in mainland China, any cross-border transfer is conducted under PIPL Articles 38-39 and we obtain separate consent where required. Data is encrypted in transit (TLS 1.3); account and subscription records held on rented serverless infrastructure are encrypted at rest by the hosting platform's storage layer, and we do not add a separate application-layer encryption. If you are in a region with local data-residency rules, switching to your local app channel keeps your data inside that region.</p>
 
-    <h2><span class="num">09</span> Changes to This Policy</h2>
+    <h2><span class="num">09</span> Data Breach Notification</h2>
+    <p>In the event of a personal data breach likely to result in a risk to users' rights, we will notify the competent supervisory authority without undue delay and, where feasible, within <strong>72 hours</strong> of becoming aware of it, and will communicate high-risk breaches to affected users without undue delay.</p>
+
+    <h2><span class="num">10</span> EU, EEA and UK Availability</h2>
+    <p><strong>We do not currently offer this app or its paid plans to data subjects in the European Union, the EEA or the United Kingdom, and we geo-restrict sign-up, checkout and trial activation for those regions.</strong> Because we are not &ldquo;offering goods or services to data subjects in the Union&rdquo; within the meaning of GDPR Art. 3(2), the Art. 27 representative requirement is not currently triggered. Should we decide to serve these markets in the future, we will appoint and publish an EU and UK representative in this section <strong>before</strong> making the app available there. Until then, direct any privacy enquiry from these regions to <a href="mailto:numbtibag@gmail.com">numbtibag@gmail.com</a>.</p>
+
+    <h2><span class="num">11</span> Changes to This Policy</h2>
     <p>We may update this policy. Material changes will be reflected by the "Last updated" date and, where appropriate, notified in-app. Continued use after an update constitutes acceptance of the revised policy.</p>
 
-    <h2><span class="num">10</span> Contact</h2>
+    <h2><span class="num">12</span> Contact</h2>
     <div class="card">
-      <p>For any privacy question, access request, or data deletion request, contact us and we respond within 72 hours:</p>
+      <p>For any privacy question, access request, data deletion request, or to exercise the rights listed in Section 05, contact us. We acknowledge requests within <strong>72 hours</strong> and respond substantively within <strong>30 days</strong>, or <strong>45 days</strong> for CCPA requests; complex requests may be extended once with written notice.</p>
       <div class="contact-line">
         <a href="mailto:numbtibag@gmail.com">numbtibag@gmail.com</a>
         <a href="data-deletion.html">Data deletion requests →</a>
+        <span>In-app: Profile → Danger Zone → Delete account</span>
       </div>
+      <p style="margin-top:14px;">You may also lodge a complaint with your local data protection authority. California residents may contact the California Attorney General. We will cooperate fully with any such inquiry.</p>
     </div>
   </div>
 </main>
@@ -228,6 +246,7 @@
     <div class="links">
       <a href="index.html">Home</a>
       <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
       <a href="data-deletion.html">Data Deletion</a>
     </div>
   </div>
