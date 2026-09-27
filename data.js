@@ -43,7 +43,7 @@ const PLATFORMS = [
     name: "RED",
     handle: "你好二胡",
     url: "https://www.xiaohongshu.com/user/profile/575567f250c4b430424a7bda",
-    followers: 413,
+    followers: 414,
     views: 899,
     unit: "followers",
     viewsUnit: "views",
@@ -55,7 +55,7 @@ const PLATFORMS = [
     name: "Bilibili",
     handle: "UID: 32922418",
     url: "https://space.bilibili.com/32922418",
-    followers: 6290,
+    followers: 6291,
     views: 456000,
     unit: "followers",
     viewsUnit: "views",
@@ -112,4 +112,4 @@ const PLATFORMS = [
   }
 ];
 
-const BOARD_UPDATED_AT = "Sep 26, 2026";
+const BOARD_UPDATED_AT = "Sep 27, 2026";
