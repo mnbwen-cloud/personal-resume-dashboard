@@ -55,7 +55,7 @@ const PLATFORMS = [
     name: "Bilibili",
     handle: "UID: 32922418",
     url: "https://space.bilibili.com/32922418",
-    followers: 6295,
+    followers: 6297,
     views: 456000,
     unit: "followers",
     viewsUnit: "views",
@@ -112,4 +112,4 @@ const PLATFORMS = [
   }
 ];
 
-const BOARD_UPDATED_AT = "Oct 6, 2026";
+const BOARD_UPDATED_AT = "Oct 7, 2026";
